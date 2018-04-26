@@ -1,0 +1,55 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/leksrej/git/VomozNET-Android/raveandroid/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values-land/values-land.xml",
+            "map": [
+                {
+                    "source": "/Users/leksrej/.gradle/caches/transforms-1/files-1.1/design-25.3.1.aar/89706b46cf1b1c211975b64d19325653/res/values-land/values-land.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "5",
+                        "endColumns": "12",
+                        "endOffsets": "232"
+                    },
+                    "to": {
+                        "startLines": "17",
+                        "startColumns": "4",
+                        "startOffsets": "908",
+                        "endLines": "20",
+                        "endColumns": "12",
+                        "endOffsets": "1085"
+                    }
+                },
+                {
+                    "source": "/Users/leksrej/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.3.1.aar/aaf6ee1eeec8e125403d335a2c296d86/res/values-land/values-land.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,125,189,260",
+                        "endColumns": "69,63,70,67",
+                        "endOffsets": "120,184,255,323"
+                    }
+                },
+                {
+                    "source": "/Users/leksrej/.gradle/caches/transforms-1/files-1.1/library-3.1.0.aar/23ba57dbb3d9c3977d56c7e91f55586d/res/values-land/values-land.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,110,161,211,258,307,356,413,469,524,580",
+                        "endColumns": "54,50,49,46,48,48,56,55,54,55,54",
+                        "endOffsets": "105,156,206,253,302,351,408,464,519,575,630"
+                    },
+                    "to": {
+                        "startLines": "6,7,8,9,10,11,12,13,14,15,16",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "328,383,434,484,531,580,629,686,742,797,853",
+                        "endColumns": "54,50,49,46,48,48,56,55,54,55,54",
+                        "endOffsets": "378,429,479,526,575,624,681,737,792,848,903"
+                    }
+                }
+            ]
+        }
+    ]
+}

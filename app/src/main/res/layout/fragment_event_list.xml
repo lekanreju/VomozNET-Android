@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical" >
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
+        android:visibility="gone"
+        android:name="com.vomozsystems.apps.android.vomozpay.fragment.EventFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorPrimary"
+        app:layoutManager="LinearLayoutManager"
+        tools:context="com.vomozsystems.apps.android.vomoznet.fragment.EventFragment"
+        tools:listitem="@layout/fragment_event" />
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="20sp"
+        android:text="No Events Found"/>
+</LinearLayout>

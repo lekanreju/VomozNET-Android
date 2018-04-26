@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/Users/leksrej/git/VomozNET-Android/raveandroid/build/intermediates/intermediate-jars/release/classes.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b1d4982c8201db1d18813a0be7839376a9ba0d66">
+        <dex dex="/Users/leksrej/git/VomozNET-Android/app/build/intermediates/transforms/preDex/jhdc/release/68.jar" />
+    </item>
+
+</items>

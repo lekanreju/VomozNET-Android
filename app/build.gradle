@@ -1,0 +1,112 @@
+apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.vomozsystems.apps.android.vomoznet"
+        minSdkVersion 16
+        targetSdkVersion 27
+        versionCode 37
+        versionName "042518-02"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    flavorDimensions "generic"
+    productFlavors {
+        omega {
+            applicationIdSuffix ".omega"
+            versionNameSuffix "-omega"
+            dimension "generic"
+        }
+        winners {
+            applicationIdSuffix ".winners"
+            versionNameSuffix "-winners"
+            dimension "generic"
+        }
+        jhdc {
+            applicationIdSuffix ".jhdc"
+            versionNameSuffix "-jhdc"
+            dimension "generic"
+        }
+        rccg {
+            applicationIdSuffix ".rccg"
+            versionNameSuffix "-rccg"
+            dimension "generic"
+        }
+        alcc {
+            applicationIdSuffix ".alcc"
+            versionNameSuffix "-alcc"
+            dimension "generic"
+        }
+        lz {
+            applicationIdSuffix ".lz"
+            versionNameSuffix "-lz"
+            dimension "generic"
+        }
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+    maven {
+        url "https://mint.splunk.com/gradle/"
+    }
+    maven {
+        url "https://maven.fabric.io/public"
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile 'com.android.support:support-v4:27.0.0'
+    compile 'com.android.support:appcompat-v7:27.0.0'
+    compile 'com.android.support:recyclerview-v7:27.0.0'
+    compile 'com.android.support:design:27.0.0'
+    compile 'com.android.support:cardview-v7:27.0.0'
+    compile 'com.android.support:gridlayout-v7:27.0.0'
+    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+    compile 'com.github.f0ris.sweetalert:library:1.5.2'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.github.barteksc:android-pdf-viewer:2.0.1'
+    compile 'com.google.firebase:firebase-messaging:12.0.0'
+    compile 'com.paypal.sdk:paypal-android-sdk:2.14.5'
+    compile 'com.pkmmte.view:circularimageview:1.1'
+    compile 'com.android.support:support-vector-drawable:27.0.0'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.splunk.mint:mint:5.0.0'
+    compile 'com.daimajia.slider:library:1.1.5@aar'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'me.leolin:ShortcutBadger:1.1.19@aar'
+    compile 'co.paystack.android:paystack:3.0.9'
+    compile 'com.github.arimorty:floatingsearchview:2.1.1'
+    compile 'me.leolin:ShortcutBadger:1.1.19@aar'
+    compile 'com.google.firebase:firebase-core:12.0.0'
+    compile 'com.squareup.picasso:picasso:2.3.2'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.daimajia.slider:library:1.1.5@aar'
+
+    // https://mvnrepository.com/artifact/com.googlecode.libphonenumber/libphonenumber
+    compile group: 'com.googlecode.libphonenumber', name: 'libphonenumber', version: '7.0'
+
+    compile project(':raveandroid')
+
+    compile files('libs/YouTubeAndroidPlayerApi.jar')
+
+    testCompile 'junit:junit:4.12'
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}
+apply plugin: 'com.google.gms.google-services'

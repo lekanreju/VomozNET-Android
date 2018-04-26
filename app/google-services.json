@@ -1,0 +1,262 @@
+{
+  "project_info": {
+    "project_number": "713353315693",
+    "firebase_url": "https://vomoznet.firebaseio.com",
+    "project_id": "vomoznet",
+    "storage_bucket": "vomoznet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713353315693:android:df509c3bc8131379",
+        "android_client_info": {
+          "package_name": "com.vomozsystems.apps.android.vomoznet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "713353315693-q7cok5di4n8nuq7lnrublj1u4kuedep8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDreYdaQGtJ2jELhT7Lxhato7W-K9WyMss"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713353315693:android:2123d9ac414a763f",
+        "android_client_info": {
+          "package_name": "com.vomozsystems.apps.android.vomoznet.alcc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "713353315693-66lkemdiek4k9ge5neobkmd0rmaokfqa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vomozsystems.apps.android.vomoznet.alcc",
+            "certificate_hash": "c9fb4c5213a557cc598d012446a7ebe92a9203f7"
+          }
+        },
+        {
+          "client_id": "713353315693-q7cok5di4n8nuq7lnrublj1u4kuedep8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDreYdaQGtJ2jELhT7Lxhato7W-K9WyMss"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "713353315693-q7cok5di4n8nuq7lnrublj1u4kuedep8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713353315693:android:c3d4368227ece1be",
+        "android_client_info": {
+          "package_name": "com.vomozsystems.apps.android.vomoznet.jhdc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "713353315693-ht4rpirhpb4d1j1guimqmonpbt2pdmk3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vomozsystems.apps.android.vomoznet.jhdc",
+            "certificate_hash": "c9fb4c5213a557cc598d012446a7ebe92a9203f7"
+          }
+        },
+        {
+          "client_id": "713353315693-q7cok5di4n8nuq7lnrublj1u4kuedep8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDreYdaQGtJ2jELhT7Lxhato7W-K9WyMss"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "713353315693-q7cok5di4n8nuq7lnrublj1u4kuedep8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713353315693:android:5d957f0630ae8100",
+        "android_client_info": {
+          "package_name": "com.vomozsystems.apps.android.vomoznet.omega"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "713353315693-0nu925huhu6hv72lnnbq2nqsj3clvbve.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vomozsystems.apps.android.vomoznet.omega",
+            "certificate_hash": "c9fb4c5213a557cc598d012446a7ebe92a9203f7"
+          }
+        },
+        {
+          "client_id": "713353315693-q7cok5di4n8nuq7lnrublj1u4kuedep8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDreYdaQGtJ2jELhT7Lxhato7W-K9WyMss"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "713353315693-q7cok5di4n8nuq7lnrublj1u4kuedep8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713353315693:android:7de8ab2a0aa03f9d",
+        "android_client_info": {
+          "package_name": "com.vomozsystems.apps.android.vomoznet.rccg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "713353315693-1ue6k7ebd741m33prntraqvj35ji20p0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vomozsystems.apps.android.vomoznet.rccg",
+            "certificate_hash": "c9fb4c5213a557cc598d012446a7ebe92a9203f7"
+          }
+        },
+        {
+          "client_id": "713353315693-q7cok5di4n8nuq7lnrublj1u4kuedep8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDreYdaQGtJ2jELhT7Lxhato7W-K9WyMss"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "713353315693-q7cok5di4n8nuq7lnrublj1u4kuedep8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713353315693:android:2d00184b9b3e0cff",
+        "android_client_info": {
+          "package_name": "com.vomozsystems.apps.android.vomoznet.winners"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "713353315693-8n92r78m7el22vbbs9s8jo5kk3l21m53.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vomozsystems.apps.android.vomoznet.winners",
+            "certificate_hash": "c9fb4c5213a557cc598d012446a7ebe92a9203f7"
+          }
+        },
+        {
+          "client_id": "713353315693-q7cok5di4n8nuq7lnrublj1u4kuedep8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDreYdaQGtJ2jELhT7Lxhato7W-K9WyMss"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "713353315693-q7cok5di4n8nuq7lnrublj1u4kuedep8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

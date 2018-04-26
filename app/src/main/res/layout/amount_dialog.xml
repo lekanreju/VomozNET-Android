@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_donation_center"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:background="@color/white"
+    card_view:cardCornerRadius="5dp"
+    card_view:cardElevation="5dp"
+    card_view:cardPreventCornerOverlap="false"
+    card_view:cardUseCompatPadding="true">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorAccent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_launcher" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:gravity="left"
+                    android:text="Donation Amount"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/amount_currency"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:gravity="left"
+                    android:text="Currency: USD"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/amount_max"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:gravity="left"
+                    android:text="Minimum Amount: 10.00 USD"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/pin_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/calculator_value"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="@color/white"
+            android:textSize="45sp" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:scrollbars="vertical">
+
+            <TableRow android:layout_width="match_parent">
+
+                <Button
+                    android:id="@+id/button_one"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_height="70dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/calculator"
+                    android:text="1"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="30sp" />
+
+                <Button
+                    android:id="@+id/button_two"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_height="70dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/calculator"
+                    android:text="2"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="30sp" />
+
+                <Button
+                    android:id="@+id/button_three"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_height="80dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/calculator"
+                    android:text="3"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="30sp" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/button_four"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_height="70dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/calculator"
+                    android:text="4"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="30sp" />
+
+                <Button
+                    android:id="@+id/button_five"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_height="70dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/calculator"
+                    android:text="5"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="30sp" />
+
+                <Button
+                    android:id="@+id/button_six"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_height="70dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/calculator"
+                    android:text="6"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="30sp" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/button_seven"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_height="70dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/calculator"
+                    android:text="7"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="30sp" />
+
+                <Button
+                    android:id="@+id/button_eight"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_height="70dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/calculator"
+                    android:text="8"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="30sp" />
+
+                <Button
+                    android:id="@+id/button_nine"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_height="70dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/calculator"
+                    android:text="9"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="30sp" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/close_button"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_height="70dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/calculator_dark"
+                    android:text="OK"
+                    android:textColor="@color/white"
+                    android:textSize="30sp" />
+
+                <Button
+                    android:id="@+id/button_zero"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_height="70dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/calculator"
+                    android:text="0"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="30sp" />
+
+                <ImageView
+                    android:id="@+id/backspace_button"
+                    android:layout_height="70dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_backspace_black_24dp" />
+
+            </TableRow>
+        </TableLayout>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

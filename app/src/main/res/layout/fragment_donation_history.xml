@@ -1,0 +1,184 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view_logo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorPrimary"
+        card_view:cardCornerRadius="0dp"
+        card_view:cardElevation="0dp"
+        card_view:cardPreventCornerOverlap="false"
+        card_view:cardUseCompatPadding="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            android:orientation="vertical">
+
+            <!--<RadioGroup
+                android:id="@+id/radio_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radio_30_Days"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:checked="true"
+                    android:text="Last 30 Days" />
+
+                <RadioButton
+                    android:id="@+id/radio_date_range"
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_height="wrap_content"
+                    android:text="Specify Date Range" />
+            </RadioGroup>-->
+
+            <LinearLayout
+                android:id="@+id/date_range_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+
+                    <Spinner
+                        android:id="@+id/spinner_donation_centers"
+                        android:layout_width="0dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/spinner_background"
+                        android:popupBackground="@color/colorPrimary"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/white"
+                        style="@style/spinnerItemStyle"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+
+                    <!--<Spinner
+                        android:id="@+id/spinner_donation_types"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="0.4" />-->
+
+                    <TextView
+                        android:id="@+id/edittxt_start_date"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="0.3"
+                        android:padding="5dp"
+                        android:background="@drawable/border"
+                        android:hint="Start Date"
+                        android:textColorHint="@color/dark_gray"
+                        android:textColor="@color/white"
+                        android:maxLines="1"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/edittxt_end_date"
+                        android:layout_width="0dp"
+                        android:padding="5dp"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/dark_gray"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="0.3"
+                        android:background="@drawable/border"
+                        android:hint="End Date"
+                        android:maxLines="1"
+                        android:textSize="18sp" />
+
+                    <Button
+                        android:id="@+id/btn_generate"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorPrimary"
+                        android:textColor="@color/white"
+                        android:drawableLeft="@drawable/ic_search"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+            <FrameLayout
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_width="match_parent">
+
+                <android.support.v7.widget.RecyclerView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:id="@+id/list"
+                    android:name="com.vomozsystems.apps.android.vomoznet.fragment.DonationHistoryListFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:background="@color/colorPrimary"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="0dp"
+                    app:layoutManager="LinearLayoutManager"
+                    tools:context=".fragment.DonationHistoryListFragment"
+                    tools:listitem="@layout/fragment_donationhistory" />
+
+                <TextView
+                    android:id="@+id/empty_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"
+                    android:visibility="gone"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="No contributions found"/>
+            </FrameLayout>
+
+            <Button
+                android:id="@+id/btn_export"
+                style="?android:attr/borderlessButtonStyle"
+                android:background="@drawable/straight_border"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:textColor="@color/white"
+                android:drawableLeft="@drawable/ic_email"
+                android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:text="Email It"
+                />
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

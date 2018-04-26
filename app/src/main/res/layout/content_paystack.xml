@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|center_vertical"
+        android:gravity="center|center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="55dp"
+            android:src="@mipmap/ic_markc" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="paystack"
+            android:textSize="30sp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/blue"
+        android:layout_marginBottom="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/contribution_description_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:textSize="20sp"
+            android:text="@string/app_name" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/contribution_amount_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="99,999,999.99 NGN"
+            android:fontFamily="sans-serif-condensed"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text_reference"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:textColor="@color/colorAccent"
+        />
+    <EditText
+        android:id="@+id/edit_card_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/straight_border_2"
+        android:gravity="center"
+        android:hint="@string/card_number"
+        android:inputType="number"
+        android:minEms="8"
+        android:text="" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/edit_cvc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="0.4"
+            android:background="@drawable/straight_border_2"
+            android:gravity="center"
+            android:hint="@string/cvv"
+            android:inputType="number"
+            android:maxLength="4"
+            android:minEms="4"
+            android:text="" />
+
+        <EditText
+            android:id="@+id/edit_expiry_month"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="0.2"
+            android:background="@drawable/straight_border_2"
+            android:gravity="right"
+            android:hint="@string/mm"
+            android:inputType="number"
+            android:maxEms="3"
+            android:maxLength="2"
+            android:text="" />
+
+        <EditText
+            android:id="@+id/edit_expiry_year"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="0.4"
+            android:background="@drawable/straight_border_2"
+            android:gravity="left"
+            android:hint="@string/yyyy"
+            android:inputType="number"
+            android:maxEms="4"
+            android:maxLength="4"
+            android:text="" />
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/button_perform_local_transaction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/blue"
+        android:padding="8dp"
+        android:text="Charge card"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/button_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:background="@color/white"
+        android:padding="8dp"
+        android:text="Cancel"
+        android:textColor="@color/colorPrimary" />
+</LinearLayout>
+
+

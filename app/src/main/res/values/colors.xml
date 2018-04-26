@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorAccent">#F39C12</color>
+    <color name="white">#FFFFFF</color>
+    <color name="grey">#E0E0E0</color>
+    <color name="dashboard_color">#BFC9CA</color>
+    <color name="table_highlight">#f2f2f2</color>
+    <color name="red">#ff0000</color>
+    <color name="light_grey">#F2F3F4</color>
+    <color name="light_grey2">#F8F8F8</color>
+    <color name="green">#149E0B</color>
+    <color name="selected">#ffebcc</color>
+    <color name="navy">#000080</color>
+    <color name="blue">#0080ff</color>
+    <color name="darker_gray">#34495E</color>
+    <color name="gray">#ff888888</color>
+</resources>

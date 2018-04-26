@@ -1,0 +1,172 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context="com.vomozsystems.apps.android.vomoznet.fragment.MyProfileFragment">
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/edit_first_name"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="40dp"
+                android:background="@drawable/edit_text_border"
+                android:enabled="true"
+                android:padding="5dp"
+                android:gravity="center_vertical"
+                android:hint="@string/prompt_first_name"
+                android:inputType="textPersonName"
+                android:maxLines="1"
+                android:textColor="@color/white"
+                android:nextFocusDown="@+id/edit_middle_name"
+                android:paddingLeft="5dp"
+                android:textSize="@dimen/text_size_medium" />
+
+            <EditText
+                android:id="@+id/edit_last_name"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/edit_text_border"
+                android:enabled="true"
+                android:gravity="center_vertical"
+                android:hint="@string/prompt_last_name"
+                android:padding="5dp"
+                android:layout_marginTop="20dp"
+                android:inputType="textPersonName"
+                android:maxLines="1"
+                android:textColor="@color/white"
+                android:nextFocusDown="@+id/edit_email"
+                android:paddingLeft="5dp"
+                android:textSize="@dimen/text_size_medium" />
+
+            <EditText
+                android:id="@+id/edit_email"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/edit_text_border"
+                android:enabled="true"
+                android:gravity="center_vertical"
+                android:hint="Email"
+                android:padding="5dp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/white"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:nextFocusDown="@+id/edit_password"
+                android:paddingLeft="5dp"
+                android:textSize="@dimen/text_size_medium" />
+
+            <EditText
+                android:id="@+id/edit_password"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/edit_text_border"
+                android:enabled="true"
+                android:gravity="center_vertical"
+                android:hint="Password"
+                android:padding="5dp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/white"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:nextFocusDown="@+id/edit_home_phone"
+                android:paddingLeft="5dp"
+                android:textSize="@dimen/text_size_medium" />
+
+            <Spinner
+                android:id="@+id/resetpasswordquestion_cardview_spinner_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/spinner_background"
+                android:popupBackground="@color/colorPrimary"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/white"
+                style="@style/spinnerItemStyle"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/resetpasswordquestion_cardview_answer1_edit_txt"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/edit_text_border"
+                android:enabled="true"
+                android:gravity="center_vertical"
+                android:hint="Answer"
+                android:padding="5dp"
+                android:textColorHint="@color/dark_gray"
+                android:textColor="@color/white"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/resetpasswordquestion_cardview_spinner_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/spinner_background"
+                android:popupBackground="@color/colorPrimary"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/white"
+                android:layout_marginTop="20dp"
+                style="@style/spinnerItemStyle"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/resetpasswordquestion_cardview_answer2_edit_txt"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/edit_text_border"
+                android:enabled="true"
+                android:gravity="center_vertical"
+                android:hint="Answer"
+                android:textColorHint="@color/dark_gray"
+                android:imeOptions="actionNext"
+                android:textColor="@color/white"
+                android:padding="5dp"
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/contribution_button"
+                style="?android:attr/borderlessButtonStyle"
+                android:background="@drawable/straight_border_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Update"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="150dp" />
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>
