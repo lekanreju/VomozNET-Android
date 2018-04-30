@@ -18,7 +18,7 @@
     <string name="org_filter">lz</string>
     <string name="org_type">Church</string>
     <string name="app_name">LifeZone</string>
-    <string name="change_center">no</string>
+    <string name="change_center">yes</string>
     <string name="prompt_mobile_phone_confirm">Confirm Mobile Phone</string>
     <string name="app_version">v2.1_03:11:17</string>
 

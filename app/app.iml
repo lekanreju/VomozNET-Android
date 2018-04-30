@@ -8,83 +8,83 @@
     </facet>
     <facet type="android" name="Android">
       <configuration>
-        <option name="SELECTED_BUILD_VARIANT" value="jhdcDebug" />
-        <option name="ASSEMBLE_TASK_NAME" value="assembleJhdcDebug" />
-        <option name="COMPILE_JAVA_TASK_NAME" value="compileJhdcDebugSources" />
+        <option name="SELECTED_BUILD_VARIANT" value="vznetDebug" />
+        <option name="ASSEMBLE_TASK_NAME" value="assembleVznetDebug" />
+        <option name="COMPILE_JAVA_TASK_NAME" value="compileVznetDebugSources" />
         <afterSyncTasks>
-          <task>generateJhdcDebugSources</task>
+          <task>generateVznetDebugSources</task>
         </afterSyncTasks>
         <option name="ALLOW_USER_CONFIGURATION" value="false" />
         <option name="MANIFEST_FILE_RELATIVE_PATH" value="/src/main/AndroidManifest.xml" />
         <option name="RES_FOLDER_RELATIVE_PATH" value="/src/main/res" />
-        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/src/main/res;file://$MODULE_DIR$/src/jhdc/res" />
+        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/src/main/res" />
         <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/src/main/assets" />
       </configuration>
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7">
-    <output url="file://$MODULE_DIR$/build/intermediates/classes/jhdc/debug" />
-    <output-test url="file://$MODULE_DIR$/build/intermediates/classes/test/jhdc/debug" />
+    <output url="file://$MODULE_DIR$/build/intermediates/classes/vznet/debug" />
+    <output-test url="file://$MODULE_DIR$/build/intermediates/classes/test/vznet/debug" />
     <exclude-output />
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/apt/jhdc/debug" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/r/jhdc/debug" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/aidl/jhdc/debug" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/jhdc/debug" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/rs/jhdc/debug" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/google-services/jhdc/debug" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/jhdc/debug" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/resValues/jhdc/debug" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/jhdcDebug/res" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/jhdcDebug/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/jhdcDebug/assets" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/jhdcDebug/aidl" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/jhdcDebug/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/jhdcDebug/rs" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/jhdcDebug/shaders" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/apt/androidTest/jhdc/debug" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/r/androidTest/jhdc/debug" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/aidl/androidTest/jhdc/debug" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/androidTest/jhdc/debug" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/rs/androidTest/jhdc/debug" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/androidTest/jhdc/debug" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/resValues/androidTest/jhdc/debug" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestJhdcDebug/res" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestJhdcDebug/resources" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestJhdcDebug/assets" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestJhdcDebug/aidl" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestJhdcDebug/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestJhdcDebug/rs" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestJhdcDebug/shaders" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/apt/test/jhdc/debug" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testJhdcDebug/res" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testJhdcDebug/resources" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testJhdcDebug/assets" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testJhdcDebug/aidl" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testJhdcDebug/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testJhdcDebug/rs" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testJhdcDebug/shaders" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/jhdc/res" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/jhdc/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/jhdc/assets" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/jhdc/aidl" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/jhdc/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/jhdc/rs" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/jhdc/shaders" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testJhdc/res" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testJhdc/resources" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testJhdc/assets" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testJhdc/aidl" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testJhdc/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testJhdc/rs" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testJhdc/shaders" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestJhdc/res" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestJhdc/resources" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestJhdc/assets" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestJhdc/aidl" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestJhdc/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestJhdc/rs" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestJhdc/shaders" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/apt/vznet/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/r/vznet/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/aidl/vznet/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/vznet/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/rs/vznet/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/google-services/vznet/debug" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/vznet/debug" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/resValues/vznet/debug" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/vznetDebug/res" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/vznetDebug/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/vznetDebug/assets" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/vznetDebug/aidl" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/vznetDebug/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/vznetDebug/rs" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/vznetDebug/shaders" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/apt/androidTest/vznet/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/r/androidTest/vznet/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/aidl/androidTest/vznet/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/androidTest/vznet/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/rs/androidTest/vznet/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/androidTest/vznet/debug" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/resValues/androidTest/vznet/debug" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestVznetDebug/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestVznetDebug/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestVznetDebug/assets" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestVznetDebug/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestVznetDebug/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestVznetDebug/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestVznetDebug/shaders" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/apt/test/vznet/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testVznetDebug/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testVznetDebug/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testVznetDebug/assets" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testVznetDebug/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testVznetDebug/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testVznetDebug/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testVznetDebug/shaders" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/vznet/res" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/vznet/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/vznet/assets" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/vznet/aidl" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/vznet/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/vznet/rs" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/vznet/shaders" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testVznet/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testVznet/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testVznet/assets" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testVznet/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testVznet/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testVznet/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testVznet/shaders" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestVznet/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestVznet/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestVznet/assets" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestVznet/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestVznet/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestVznet/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestVznet/shaders" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/debug/res" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/debug/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/debug/assets" type="java-resource" />
@@ -144,7 +144,6 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/transforms" />
       <excludeFolder url="file://$MODULE_DIR$/build/outputs" />
-      <excludeFolder url="file://$MODULE_DIR$/build/reports" />
       <excludeFolder url="file://$MODULE_DIR$/build/tmp" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 27 Platform" jdkType="Android SDK" />

@@ -36,6 +36,7 @@ import com.vomozsystems.apps.android.vomoznet.entity.User;
 import com.vomozsystems.apps.android.vomoznet.service.ApiClient;
 import com.vomozsystems.apps.android.vomoznet.service.ApiInterface;
 import com.vomozsystems.apps.android.vomoznet.service.BaseServiceResponse;
+import com.vomozsystems.apps.android.vomoznet.service.DonationCenterResponse;
 import com.vomozsystems.apps.android.vomoznet.service.GetDonationHistoryRequest;
 import com.vomozsystems.apps.android.vomoznet.service.GetDonationHistoryResponse;
 import com.vomozsystems.apps.android.vomoznet.service.GetDonationStatementResponse;
@@ -105,6 +106,7 @@ public class DonationHistoryFragment extends Fragment {
     private Button btnExport;
     private DonationCenter selectedDonationCenter;
     private List<DonationHistory> donationHistoryList;
+    private List<DonationCenter> availableDonationCenters;
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -313,8 +315,8 @@ public class DonationHistoryFragment extends Fragment {
                 btnExport.setEnabled(true);
 //                int selectedId = radioGroup.getCheckedRadioButtonId();
 //                if (selectedId == radioSpecify.getId()) {
-                if (spinnerDonationCenters.getSelectedItemPosition() > 0)
-                    selectedDonationCenter = realm.where(DonationCenter.class).equalTo("name", spinnerDonationCenters.getSelectedItem().toString()).findFirst();
+                if (spinnerDonationCenters.getSelectedItemPosition() > 0 && availableDonationCenters!=null)
+                    selectedDonationCenter = availableDonationCenters.get(spinnerDonationCenters.getSelectedItemPosition()-1);//realm.where(DonationCenter.class).equalTo("name", spinnerDonationCenters.getSelectedItem().toString()).findFirst();
                 else {
                     selectedDonationCenter = new DonationCenter();
                     selectedDonationCenter.setCardId(0L);
@@ -350,8 +352,8 @@ public class DonationHistoryFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 realm = Realm.getDefaultInstance();
                 selectedDonationCenter = realm.where(DonationCenter.class).equalTo("homeDonationCenter", true).findFirst();
-                if (spinnerDonationCenters.getSelectedItemPosition() > 0)
-                    selectedDonationCenter = realm.where(DonationCenter.class).equalTo("name", spinnerDonationCenters.getSelectedItem().toString()).findFirst();
+                if (spinnerDonationCenters.getSelectedItemPosition() > 0 && availableDonationCenters!=null)
+                    selectedDonationCenter = availableDonationCenters.get(spinnerDonationCenters.getSelectedItemPosition()-1);//realm.where(DonationCenter.class).equalTo("name", spinnerDonationCenters.getSelectedItem().toString()).findFirst();
                 else
                 {
                     selectedDonationCenter = new DonationCenter();
@@ -438,18 +440,31 @@ public class DonationHistoryFragment extends Fragment {
 //            }
 //        });
 
-        realm = Realm.getDefaultInstance();
-        List<DonationCenter> donationCenters = realm.where(DonationCenter.class).findAll();
-        if (null != donationCenters) {
-            List<String> names = new ArrayList<String>();
-            names.add("All " + getResources().getString(R.string.org_type_plural));
-            for (DonationCenter donationCenter : donationCenters) {
-                names.add(donationCenter.getName());
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Config config = realm.where(Config.class).findFirst();
+        Call<DonationCenterResponse> call = apiInterface.getAll(getResources().getString(R.string.org_filter));
+        call.enqueue(new Callback<DonationCenterResponse>() {
+            @Override
+            public void onResponse(Call<DonationCenterResponse> call, Response<DonationCenterResponse> response) {
+                if(response.isSuccessful()) {
+                    availableDonationCenters = response.body().getResponseData();
+                    List<String> names = new ArrayList<String>();
+                    names.add("All " + getResources().getString(R.string.org_type_plural));
+                    for (DonationCenter donationCenter : availableDonationCenters) {
+                        names.add(donationCenter.getName());
+                    }
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, names);
+                    adapter.setDropDownViewResource(R.layout.spinner_drop_down);
+                    spinnerDonationCenters.setAdapter(adapter);
+                }
             }
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, names);
-            adapter.setDropDownViewResource(R.layout.spinner_drop_down);
-            spinnerDonationCenters.setAdapter(adapter);
-        }
+
+            @Override
+            public void onFailure(Call<DonationCenterResponse> call, Throwable t) {
+
+            }
+        });
+
         return view;
     }
 

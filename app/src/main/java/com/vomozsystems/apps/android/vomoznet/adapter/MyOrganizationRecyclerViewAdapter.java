@@ -200,7 +200,7 @@ public class MyOrganizationRecyclerViewAdapter extends RecyclerView.Adapter<MyOr
                             memberInfoRequest.setPhoneNumber(ApplicationUtils.cleanPhoneNumber(config.getMobilePhone()));
                             memberInfoRequest.setPassword(config.getPassword());
                             memberInfoRequest.setCenterCardId(center.getCardId());
-                            Call<UserLoginResponse> call2 = apiService.login(memberInfoRequest, "", ApplicationUtils.APP_ID);
+                            Call<UserLoginResponse> call2 = apiService.login(memberInfoRequest, getActivity().getResources().getString(R.string.org_filter), "", ApplicationUtils.APP_ID);
                             call2.enqueue(new Callback<UserLoginResponse>() {
                                 @Override
                                 public void onResponse(Call<UserLoginResponse> call, Response<UserLoginResponse> response) {

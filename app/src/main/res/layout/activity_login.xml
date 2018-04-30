@@ -254,7 +254,7 @@
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/reset_questions_and_answers_card_view"
+        android:id="@+id/reset_password_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="7dp"
@@ -331,54 +331,46 @@
                     android:layout_marginBottom="20dp"
                     android:fontFamily="sans-serif-smallcaps"
                     android:gravity="center_horizontal"
-                    android:text="reset password questions and answers"
+                    android:text="reset password"
                     android:textSize="18sp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="First Reset Password Question"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="15sp" />
 
-                <Spinner
-                    android:id="@+id/resetpasswordquestion_cardview_spinner_1"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp" />
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/resetpasswordquestion_cardview_passcode_edit_txt"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:hint="Passcode"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textSize="18sp" />
+
+                    <Button
+                        android:id="@+id/resetpasswordquestion_get_passcode_button"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:text="Get Passcode"
+                        android:textColor="@color/colorPrimary" />
+
+                </LinearLayout>
+
 
                 <EditText
-                    android:id="@+id/resetpasswordquestion_cardview_answer1_edit_txt"
+                    android:id="@+id/resetpasswordquestion_cardview_password_edit_txt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Answer here"
+                    android:hint="New Password"
                     android:imeOptions="actionNext"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:text="Second Reset Password Question"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="15sp" />
-
-                <Spinner
-                    android:id="@+id/resetpasswordquestion_cardview_spinner_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/resetpasswordquestion_cardview_answer2_edit_txt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Answer here"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"
+                    android:inputType="textPassword"
                     android:maxLines="1"
                     android:singleLine="true"
                     android:textSize="18sp" />
@@ -413,7 +405,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:background="@color/white"
-                        android:text="Next"
+                        android:text="Reset Password"
                         android:textColor="@color/colorPrimary" />
                 </LinearLayout>
 
@@ -601,7 +593,7 @@
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/reset_password_card_view"
+        android:id="@+id/reset_password_card_view1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="7dp"

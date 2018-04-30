@@ -657,51 +657,53 @@ public class MyChurchActivity extends AppCompatActivity implements VideoFragment
     private void autoSubscribe() {
         final Realm realm = Realm.getDefaultInstance();
         final User user = realm.where(User.class).findFirst();
-        if(user != null) {
-            DonationCenter donationCenter = realm.where(DonationCenter.class).equalTo("homeDonationCenter", true).findFirst();
-            if (donationCenter != null) {
-                ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-                Call<GetDonationCenterTopicResponse> call = apiService.getDonationCenterTopicsForUser(donationCenter.getCardId(), Long.valueOf(user.getTexterCardId()));
+        if(null != user && user.getTexterCardId() != null) {
+            if (user != null) {
+                DonationCenter donationCenter = realm.where(DonationCenter.class).equalTo("homeDonationCenter", true).findFirst();
+                if (donationCenter != null) {
+                    ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+                    Call<GetDonationCenterTopicResponse> call = apiService.getDonationCenterTopicsForUser(donationCenter.getCardId(), Long.valueOf(user.getTexterCardId()));
 
-                call.enqueue(new Callback<GetDonationCenterTopicResponse>() {
-                    @Override
-                    public void onResponse(Call<GetDonationCenterTopicResponse> call, Response<GetDonationCenterTopicResponse> response) {
-                        if (response.isSuccessful()) {
-                            List<DonationCenterTopic> topics = response.body().getResponseData();
-                            if (null != topics && topics.size() > 0) {
-                                Map<Long, Boolean> map = new HashMap<Long, Boolean>();
-                                List<DonationCenterTopic> list = realm.where(DonationCenterTopic.class).findAll();
-                                if (null != list && list.size() > 0) {
-                                    for (DonationCenterTopic topic : list) {
-                                        map.put(topic.getId(), topic.getSelected());
-                                    }
-                                }
-                                realm.beginTransaction();
-
+                    call.enqueue(new Callback<GetDonationCenterTopicResponse>() {
+                        @Override
+                        public void onResponse(Call<GetDonationCenterTopicResponse> call, Response<GetDonationCenterTopicResponse> response) {
+                            if (response.isSuccessful()) {
+                                List<DonationCenterTopic> topics = response.body().getResponseData();
                                 if (null != topics && topics.size() > 0) {
-                                    for (DonationCenterTopic topic : topics) {
-                                        topic.setTopicName(topic.getTopicName().replace(" ", "_"));
-                                        Boolean value = map.get(topic.getId());
-                                        if (null == value) {
-                                            FirebaseMessaging.getInstance().subscribeToTopic(topic.getTopicName());
-                                            topic.setSelected(true);
-                                        } else
-                                            topic.setSelected(value);
+                                    Map<Long, Boolean> map = new HashMap<Long, Boolean>();
+                                    List<DonationCenterTopic> list = realm.where(DonationCenterTopic.class).findAll();
+                                    if (null != list && list.size() > 0) {
+                                        for (DonationCenterTopic topic : list) {
+                                            map.put(topic.getId(), topic.getSelected());
+                                        }
                                     }
-                                }
-                                realm.copyToRealmOrUpdate(topics);
-                                realm.commitTransaction();
+                                    realm.beginTransaction();
 
+                                    if (null != topics && topics.size() > 0) {
+                                        for (DonationCenterTopic topic : topics) {
+                                            topic.setTopicName(topic.getTopicName().replace(" ", "_"));
+                                            Boolean value = map.get(topic.getId());
+                                            if (null == value) {
+                                                FirebaseMessaging.getInstance().subscribeToTopic(topic.getTopicName());
+                                                topic.setSelected(true);
+                                            } else
+                                                topic.setSelected(value);
+                                        }
+                                    }
+                                    realm.copyToRealmOrUpdate(topics);
+                                    realm.commitTransaction();
+
+                                }
                             }
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<GetDonationCenterTopicResponse> call, Throwable t) {
+                        @Override
+                        public void onFailure(Call<GetDonationCenterTopicResponse> call, Throwable t) {
 
-                    }
-                });
-                // create an Object for Adapter
+                        }
+                    });
+                    // create an Object for Adapter
+                }
             }
         }
     }

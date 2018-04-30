@@ -142,11 +142,12 @@ public interface ApiInterface {
     /**
      * @param request
      * @param authToken
+     * @param orgFilter
      * @param appId
      * @return
      */
     @POST("users/login")
-    Call<UserLoginResponse> login(@Body MemberInfoRequest request, @Header("VmzPay-Auth-Token") String authToken, @Header("VmzPay-App-Id") String appId);
+    Call<UserLoginResponse> login(@Body MemberInfoRequest request, @Query("org-filter") String orgFilter, @Header("VmzPay-Auth-Token") String authToken, @Header("VmzPay-App-Id") String appId);
 
     /**
      * @param request
@@ -166,6 +167,15 @@ public interface ApiInterface {
      */
     @GET("users/get-balance/all/{callerId}")
     Call<GetAllBalanceResponse> getUserAllBalances(@Path("callerId") String callerId, @Header("VmzPay-Auth-Token") String authToken, @Header("VmzPay-App-Id") String appId);
+
+    @GET("users/get-balance/all/{callerId}/{donationCenterCardId}")
+    Call<GetAllBalanceResponse> getUserAllBalancesForOrg(@Path("callerId") String callerId, @Path("donationCenterCardId") Long donationCenterCardId, @Header("VmzPay-Auth-Token") String authToken, @Header("VmzPay-App-Id") String appId);
+
+    @GET("users/get-org-balance/{callerId}")
+    Call<GetAllBalanceResponse> getUserAllBalancesForOrgFilter(@Path("callerId") String callerId, @Query("org-filter") String orgFilter, @Header("VmzPay-Auth-Token") String authToken, @Header("VmzPay-App-Id") String appId);
+
+    @POST("users/send-email/{callerId}")
+    Call<BaseServiceResponse> sendEmail(@Path("callerId") String callerId, @Body EmailMessage serviceMessage, @Header("VmzPay-Auth-Token") String authToken, @Header("VmzPay-App-Id") String appId);
 
     /**
      *

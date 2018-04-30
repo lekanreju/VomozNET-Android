@@ -43,6 +43,7 @@ import com.google.i18n.phonenumbers.Phonenumber;
 import com.pkmmte.view.CircularImageView;
 import com.squareup.picasso.Picasso;
 import com.vomozsystems.apps.android.vomoznet.GiveActivity;
+import com.vomozsystems.apps.android.vomoznet.MainActivity;
 import com.vomozsystems.apps.android.vomoznet.MyChurchActivity;
 import com.vomozsystems.apps.android.vomoznet.R;
 import com.vomozsystems.apps.android.vomoznet.entity.AmountContributed;
@@ -82,6 +83,7 @@ import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.realm.Realm;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -163,7 +165,8 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
             loadPersonImage(user);
 
             ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-            Call<GetAllBalanceResponse> call = apiInterface.getUserAllBalances(ApplicationUtils.cleanPhoneNumber(config.getMobilePhone()), "", ApplicationUtils.APP_ID);
+            String phoneNumber = ApplicationUtils.cleanPhoneNumber(config.getMobilePhone());
+            Call<GetAllBalanceResponse> call = apiInterface.getUserAllBalancesForOrgFilter(phoneNumber, getResources().getString(R.string.org_filter), "", ApplicationUtils.APP_ID);
             call.enqueue(new Callback<GetAllBalanceResponse>() {
                 @Override
                 public void onResponse(Call<GetAllBalanceResponse> call, Response<GetAllBalanceResponse> response) {
@@ -217,16 +220,7 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
                 }
             });
         }
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_home, container, false);
-        recyclerView = view.findViewById(R.id.item_list);
-        mDemoSlider = (SliderLayout)view.findViewById(R.id.slider);
-        final Realm realm = Realm.getDefaultInstance();
         DonationCenter donationCenter = realm.where(DonationCenter.class).equalTo("homeDonationCenter", true).findFirst();
         Long cardId = 0L;
         String merchantIdCode = "";
@@ -278,14 +272,31 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
                 Log.i(getClass().getSimpleName(), "");
             }
         });
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_home, container, false);
+        recyclerView = view.findViewById(R.id.item_list);
+        mDemoSlider = (SliderLayout)view.findViewById(R.id.slider);
+
 
 
         Button giveButton = (Button) view.findViewById(R.id.give_button);
         giveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), GiveActivity.class);
-                startActivity(intent);
+                Realm realm = Realm.getDefaultInstance();
+                DonationCenter donationCenter = realm.where(DonationCenter.class).equalTo("homeDonationCenter", true).findFirst();
+                User user = realm.where(User.class).findFirst();
+                if(donationCenter!=null && user!=null) {
+                    Intent intent = new Intent(getActivity(), GiveActivity.class);
+                    startActivity(intent);
+                }else {
+                    ((MainActivity)getActivity()).onResume();
+                }
             }
         });
 
@@ -293,17 +304,15 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
         myChurchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), MyChurchActivity.class);
-                startActivity(intent);
-            }
-        });
-        showUserDetails(view);
-
-        imgPerson = (CircularImageView) view.findViewById(R.id.img_user_profile);
-        imgPerson.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
+                Realm realm = Realm.getDefaultInstance();
+                DonationCenter donationCenter = realm.where(DonationCenter.class).equalTo("homeDonationCenter", true).findFirst();
+                User user = realm.where(User.class).findFirst();
+                if(donationCenter!=null && user!=null) {
+                    Intent intent = new Intent(getActivity(), MyChurchActivity.class);
+                    startActivity(intent);
+                }else {
+                    ((MainActivity)getActivity()).onResume();
+                }
             }
         });
 
@@ -908,7 +917,7 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
                             String savedPassword = config.getPassword(); //PreferenceManager.getDefaultSharedPreferences(BaseActivity.this).getString(SimpleLoginActivity.PASSWORD_LABEL, null);
                             request.setPhoneNumber(savedPhone);
                             request.setPassword(savedPassword);
-                            final Call<UserLoginResponse> call = apiService.login(request, "", ApplicationUtils.APP_ID);
+                            final Call<UserLoginResponse> call = apiService.login(request, getActivity().getResources().getString(R.string.org_filter),"", ApplicationUtils.APP_ID);
                             call.enqueue(new Callback<UserLoginResponse>() {
                                 @Override
                                 public void onResponse(Call<UserLoginResponse> call, Response<UserLoginResponse> response) {

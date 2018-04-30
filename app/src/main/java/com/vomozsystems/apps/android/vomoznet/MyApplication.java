@@ -5,6 +5,7 @@ import android.app.Application;
 import com.vomozsystems.apps.android.vomoznet.utility.ApplicationUtils;
 
 import co.paystack.android.PaystackSdk;
+import co.paystack.android.utils.StringUtils;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -18,8 +19,9 @@ public class MyApplication extends Application {
         super.onCreate();
         Realm.init(this);
         PaystackSdk.initialize(getApplicationContext());
+        String orgName = getResources().getString(R.string.org_filter);
         RealmConfiguration realmConfiguration =
-                new RealmConfiguration.Builder().schemaVersion(ApplicationUtils.CURRENT_REALM_VERSION).name(getResources().getString(R.string.org_filter)).build();
+                new RealmConfiguration.Builder().schemaVersion(ApplicationUtils.CURRENT_REALM_VERSION).name(orgName).build();
         Realm.setDefaultConfiguration(realmConfiguration);
     }
 

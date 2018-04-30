@@ -45,6 +45,7 @@ import com.vomozsystems.apps.android.vomoznet.service.ApiClient;
 import com.vomozsystems.apps.android.vomoznet.service.ApiInterface;
 import com.vomozsystems.apps.android.vomoznet.service.BaseServiceResponse;
 import com.vomozsystems.apps.android.vomoznet.service.DonationCenterResponse;
+import com.vomozsystems.apps.android.vomoznet.service.EmailMessage;
 import com.vomozsystems.apps.android.vomoznet.service.GetGlobalInfoResponse;
 import com.vomozsystems.apps.android.vomoznet.service.GetPersonalInfoResponse;
 import com.vomozsystems.apps.android.vomoznet.service.GetReferenceDataResponse;
@@ -80,6 +81,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String AGREEMENT = "agreement";
     public static ReferenceData referenceData = new ReferenceData();
+    private Personal personal;
     private final int REQUEST_READ_PHONE_STATE = 1000;
     public OkHttpClient okHttpClient = new OkHttpClient.Builder()
             .readTimeout(MakeDonationInterface.readTimeOut, TimeUnit.SECONDS)
@@ -90,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
     private CardView passwordCardView;
     private CardView createAccountCardView;
     private CardView resetPasswordCardView;
-    private CardView resetPasswordQuestionsCardView;
+   // private CardView resetPasswordQuestionsCardView;
     private Realm realm;
     private static String thePhoneNumber;
     private String flagUrl;
@@ -222,33 +224,6 @@ public class LoginActivity extends AppCompatActivity {
             return null;
         }
     }
-
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-//        switch (requestCode) {
-//            case REQUEST_READ_PHONE_STATE:
-//                if ((grantResults.length > 0) && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-//                    extractFlagAndPhone(this);
-//                    getVomozPayGlobalUserInfo(mPhoneNumber);
-//                }else {
-//                    new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
-//                            .setContentText(getResources().getString(R.string.app_name) + " requires the permission to validate your phone number.")
-//                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-//                                @Override
-//                                public void onClick(SweetAlertDialog sweetAlertDialog) {
-//                                    finish();
-//                                    exit(0);
-//                                }
-//                            })
-//                            .setTitleText(getString(R.string.app_name))
-//                            .show();
-//                }
-//                break;
-//
-//            default:
-//                break;
-//        }
-//    }
 
     @SuppressLint("MissingPermission")
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
@@ -389,7 +364,7 @@ public class LoginActivity extends AppCompatActivity {
                 PreferenceManager.getDefaultSharedPreferences(LoginActivity.this).edit().putBoolean(LoginActivity.AGREEMENT, true).apply();
                 mobilePhoneCardViewNextButton.setEnabled(true);
                 mobilePhoneCardViewNextButton.setTextColor(getResources().getColor(R.color.colorPrimary));
-                agreementLayout.setVisibility(GONE);
+                //agreementLayout.setVisibility(GONE);
             }
         });
 
@@ -451,13 +426,13 @@ public class LoginActivity extends AppCompatActivity {
         passwordCardView = (CardView) findViewById(R.id.password_card_view);
         createAccountCardView = (CardView) findViewById(R.id.create_account_card_view);
         resetPasswordCardView = (CardView) findViewById(R.id.reset_password_card_view);
-        resetPasswordQuestionsCardView = (CardView) findViewById(R.id.reset_questions_and_answers_card_view);
+        //resetPasswordQuestionsCardView = (CardView) findViewById(R.id.reset_questions_and_answers_card_view);
 
         mobilePhoneCardView.setVisibility(VISIBLE);
         passwordCardView.setVisibility(GONE);
         createAccountCardView.setVisibility(GONE);
         resetPasswordCardView.setVisibility(GONE);
-        resetPasswordQuestionsCardView.setVisibility(GONE);
+        //resetPasswordQuestionsCardView.setVisibility(GONE);
         Config config = realm.where(Config.class).findFirst();
         final Realm realm = Realm.getDefaultInstance();
 
@@ -471,7 +446,7 @@ public class LoginActivity extends AppCompatActivity {
             extractDevicePhoneNumberAndLogin();
         } else if (null != config.getLastPage() && config.getLastPage().length() > 0 && config.getLastPage().equalsIgnoreCase("Security Questions")) {
             extractDevicePhoneNumberAndLogin();
-            showResetPasswordQuestionsForm();
+            //showResetPasswordQuestionsForm();
         } else if (null != config.getVerifiedPhoneNumbers() && config.getVerifiedPhoneNumbers().contains(config.getMobilePhone())) {
             validateUser();
         } else if (null != config.getMobilePhone() && null != config.getPassword() && null != config.getLoggedIn() && config.getLoggedIn().equals(Boolean.TRUE)) {
@@ -512,7 +487,7 @@ public class LoginActivity extends AppCompatActivity {
         createAccountCardView.setVisibility(GONE);
         resetPasswordCardView.setVisibility(GONE);
         passwordCardView.setVisibility(GONE);
-        resetPasswordQuestionsCardView.setVisibility(GONE);
+        //resetPasswordQuestionsCardView.setVisibility(GONE);
         checkAgreement();
         final ImageView flagImageView = (ImageView) findViewById(R.id.mobilephone_cardview_flag_imageview);
         if (flagUrl == null) flagImageView.setVisibility(GONE);
@@ -832,7 +807,7 @@ public class LoginActivity extends AppCompatActivity {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        Personal personal = personals.get(selectedOption);
+                        personal = personals.get(selectedOption);
                         createMyProfile(personal.getFirstName(), personal.getLastName(), personal.getPrimaryEmail(), personal.getAuthPass());
 
                     }
@@ -856,7 +831,7 @@ public class LoginActivity extends AppCompatActivity {
         createAccountCardView.setVisibility(VISIBLE);
         resetPasswordCardView.setVisibility(GONE);
         passwordCardView.setVisibility(GONE);
-        resetPasswordQuestionsCardView.setVisibility(GONE);
+        //resetPasswordQuestionsCardView.setVisibility(GONE);
 
         final EditText firstNameEditText = (EditText) findViewById(R.id.createaccount_cardview_first_name_edit_txt);
         final EditText lastNameEditText = (EditText) findViewById(R.id.createaccount_cardview_last_name_edit_txt);
@@ -971,6 +946,7 @@ public class LoginActivity extends AppCompatActivity {
                         config.setMobilePhone(mPhoneNumber);
                         config.setAccessCode(null);
                         config.setSendResetEmailCount(0);
+                        config.setCurrentDonationCenterCardId(personal.getCenterCardId());
                         config.setSendAccessCodeCount(0);
                         config.setResetPasswordCode(null);
                         config.setFailedAttemptCount(0);
@@ -984,13 +960,13 @@ public class LoginActivity extends AppCompatActivity {
                         realm.copyToRealmOrUpdate(config);
                         realm.commitTransaction();
                         sweetAlertDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
-                        sweetAlertDialog.setContentText("Successfully signed up!\n\nBefore you can login, you must configure your security questions.");
+                        sweetAlertDialog.setContentText("Successfully signed up!\n\n");
                         sweetAlertDialog.setConfirmText("Continue");
                         sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sweetAlertDialog) {
                                 sweetAlertDialog.dismissWithAnimation();
-                                showResetPasswordQuestionsForm();
+                                gotoHome();
                             }
                         });
                     }
@@ -1001,7 +977,7 @@ public class LoginActivity extends AppCompatActivity {
                         BaseServiceResponse baseServiceResponse = ApiClient.getError(json);
                         sweetAlertDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
                         sweetAlertDialog.setContentText("Your profile could not be created. " + baseServiceResponse.getMessage().getDescription() + "\n\n" +
-                                "TransactionID : " + baseServiceResponse.getTransactionId());
+                                "");
                         sweetAlertDialog.setConfirmText("Continue");
                         sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
@@ -1031,12 +1007,12 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    private void showResetPasswordQuestionsForm() {
+    private void showResetPasswordQuestionsForm1() {
         mobilePhoneCardView.setVisibility(GONE);
         createAccountCardView.setVisibility(GONE);
         resetPasswordCardView.setVisibility(GONE);
         passwordCardView.setVisibility(GONE);
-        resetPasswordQuestionsCardView.setVisibility(VISIBLE);
+        //resetPasswordQuestionsCardView.setVisibility(VISIBLE);
 
         final ImageView flagImageView = (ImageView) findViewById(R.id.resetpassword_cardview_flag_imageview);
         if (flagUrl == null) flagImageView.setVisibility(GONE);
@@ -1205,7 +1181,164 @@ public class LoginActivity extends AppCompatActivity {
         createAccountCardView.setVisibility(GONE);
         resetPasswordCardView.setVisibility(VISIBLE);
         passwordCardView.setVisibility(GONE);
-        resetPasswordQuestionsCardView.setVisibility(GONE);
+        final Realm realm = Realm.getDefaultInstance();
+        final Config config = realm.where(Config.class).findFirst();
+
+        Button buttonGetPasscode = findViewById(R.id.resetpasswordquestion_get_passcode_button);
+        buttonGetPasscode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                EmailMessage emailMessage = new EmailMessage();
+                final int min = 100000;
+                final int max = 999999;
+                final int random = new Random().nextInt((max - min) + 1) + min;
+                String accessCode = random + "";
+                realm.beginTransaction();
+                config.setResetPasswordCode(accessCode);
+                realm.copyToRealmOrUpdate(config);
+                realm.commitTransaction();
+                emailMessage.setReceiver(config.getEmail());
+                emailMessage.setSubject(getResources().getString(R.string.app_name) + " - Reset Your Password");
+                emailMessage.setBody("Hello " + config.getFirstName() + "\n\nHere is the passcode needed to reset your password.\n\n<b>" + accessCode + "</b>\n\nBest Regards.\n"+getResources().getString(R.string.app_name)+ " app");
+                Call<BaseServiceResponse> call = apiInterface.sendEmail(config.getEmail(),emailMessage, "", "");
+                call.enqueue(new Callback<BaseServiceResponse>() {
+                    @Override
+                    public void onResponse(Call<BaseServiceResponse> call, Response<BaseServiceResponse> response) {
+                        if(response.isSuccessful()) {
+                            SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.SUCCESS_TYPE)
+                                    .setContentText("The passcode has been sent to your email.")
+                                    .setTitleText(getString(R.string.app_name));
+                            sweetAlertDialog.show();
+                        }else {
+                            SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                    .setContentText("The passcode could NOT be sent to your email.")
+                                    .setTitleText(getString(R.string.app_name));
+                            sweetAlertDialog.show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<BaseServiceResponse> call, Throwable t) {
+                        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                .setContentText("The passcode could NOT be sent to your email.")
+                                .setTitleText(getString(R.string.app_name));
+                        sweetAlertDialog.show();
+                    }
+                });
+            }
+        });
+        final EditText passCodeEditText = (EditText) findViewById(R.id.resetpasswordquestion_cardview_passcode_edit_txt);
+
+        final EditText newPasswordEditText = (EditText) findViewById(R.id.resetpasswordquestion_cardview_password_edit_txt);
+        Button resetPasswordButton = findViewById(R.id.resetpasswordquestion_cardview_next_button);
+
+        resetPasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(null != config.getAccessCode() && config.getAccessCode().equalsIgnoreCase(passCodeEditText.getText().toString())) {
+                    SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
+                            .setContentText("Invalid Passcode. Please check your email and try again")
+                            .setTitleText(getString(R.string.app_name));
+                    sweetAlertDialog.show();
+                } else {
+                    VomozGlobalInfo vomozGlobalInfo = new VomozGlobalInfo();
+                    vomozGlobalInfo.setCallerId(ApplicationUtils.cleanPhoneNumber(mPhoneNumber));
+                    vomozGlobalInfo.setPassword(newPasswordEditText.getText().toString());
+                    ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                    Call<BaseServiceResponse> call = apiInterface.resetPasswordGlobalInfo(vomozGlobalInfo, "", ApplicationUtils.APP_ID);
+                    final SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.PROGRESS_TYPE)
+                            .setContentText("Reseting your password...Please Wait")
+                            .setTitleText(getString(R.string.app_name));
+                    sweetAlertDialog.show();
+                    call.enqueue(new Callback<BaseServiceResponse>() {
+                        @Override
+                        public void onResponse(Call<BaseServiceResponse> call, Response<BaseServiceResponse> response) {
+                            if (response.isSuccessful()) {
+                                sweetAlertDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                                sweetAlertDialog.setContentText("Password reset successfully");
+                                sweetAlertDialog.setConfirmText("Login Now");
+                                sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                        sweetAlertDialog.dismissWithAnimation();
+                                        Config config = realm.where(Config.class).findFirst();
+                                        realm.beginTransaction();
+                                        config.setFailedAttemptCount(0);
+                                        config.setResetPasswordCode(null);
+                                        config.setAccessCode(null);
+                                        config.setSendResetEmailCount(0);
+                                        config.setSendAccessCodeCount(0);
+                                        config.setLoggedIn(true);
+                                        realm.copyToRealmOrUpdate(config);
+                                        realm.commitTransaction();
+                                        showPasswordForm(newPasswordEditText.getText().toString());
+                                    }
+                                });
+                            } else {
+                                sweetAlertDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                                sweetAlertDialog.setContentText("Password was not reset successfully");
+                                sweetAlertDialog.setConfirmText("OK");
+                                sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                        sweetAlertDialog.dismissWithAnimation();
+                                    }
+                                });
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<BaseServiceResponse> call, Throwable t) {
+                            sweetAlertDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                            sweetAlertDialog.setContentText("Password was not reset successfully");
+                            sweetAlertDialog.setConfirmText("OK");
+                            sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    sweetAlertDialog.dismissWithAnimation();
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        });
+        Button quitButton = (Button) findViewById(R.id.resetpassword_cardview_quit_button);
+        quitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.NORMAL_TYPE)
+                        .setContentText("Do you want to quit?")
+                        .setTitleText(getString(R.string.app_name))
+                        .setConfirmText("Yes")
+                        .setCancelText("No")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                sweetAlertDialog.dismissWithAnimation();
+                                exit(0);
+                            }
+                        })
+                        .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                sweetAlertDialog.dismissWithAnimation();
+                            }
+                        })
+                        .show();
+            }
+        });
+
+
+    }
+
+    private void showForgotPasswordForm1() {
+        mobilePhoneCardView.setVisibility(GONE);
+        createAccountCardView.setVisibility(GONE);
+        resetPasswordCardView.setVisibility(VISIBLE);
+        passwordCardView.setVisibility(GONE);
+        //resetPasswordQuestionsCardView.setVisibility(GONE);
 
         final ImageView flagImageView = (ImageView) findViewById(R.id.resetpassword_cardview_flag_imageview);
         if (flagUrl == null) flagImageView.setVisibility(GONE);
@@ -1228,29 +1361,29 @@ public class LoginActivity extends AppCompatActivity {
         final EditText passwordEditText = (EditText) findViewById(R.id.resetpassword_cardview_password_edit_txt);
         final TextView securityQuestionTextView = (TextView) findViewById(R.id.resetpassword_cardview_security_question_txt);
         Random rand = new Random();
-        int selectedId = 0;
-        String question = null;
-        int x = rand.nextInt(2);
-        if (x == 0) {
-            selectedId = config.getSecurityQuestion1Id();
-            answer = config.getSecurityQuestion1Answer();
-            for (ResetPasswordQuestion resetPasswordQuestion : referenceData.getGroup1Questions()) {
-                if (resetPasswordQuestion.getQuestionId().equals(selectedId)) {
-                    question = resetPasswordQuestion.getQuestion();
-                    break;
-                }
-            }
-        } else {
-            selectedId = config.getSecurityQuestion2Id();
-            answer = config.getSecurityQuestion2Answer();
-            for (ResetPasswordQuestion resetPasswordQuestion : referenceData.getGroup2Questions()) {
-                if (resetPasswordQuestion.getQuestionId().equals(selectedId)) {
-                    question = resetPasswordQuestion.getQuestion();
-                    break;
-                }
-            }
-        }
-        securityQuestionTextView.setText(question);
+//        int selectedId = 0;
+//        String question = null;
+//        int x = rand.nextInt(2);
+//        if (x == 0) {
+//            selectedId = config.getSecurityQuestion1Id();
+//            answer = config.getSecurityQuestion1Answer();
+//            for (ResetPasswordQuestion resetPasswordQuestion : referenceData.getGroup1Questions()) {
+//                if (resetPasswordQuestion.getQuestionId().equals(selectedId)) {
+//                    question = resetPasswordQuestion.getQuestion();
+//                    break;
+//                }
+//            }
+//        } else {
+//            selectedId = config.getSecurityQuestion2Id();
+//            answer = config.getSecurityQuestion2Answer();
+//            for (ResetPasswordQuestion resetPasswordQuestion : referenceData.getGroup2Questions()) {
+//                if (resetPasswordQuestion.getQuestionId().equals(selectedId)) {
+//                    question = resetPasswordQuestion.getQuestion();
+//                    break;
+//                }
+//            }
+//        }
+//        securityQuestionTextView.setText(question);
         final Button resetButton = (Button) findViewById(R.id.resetpassword_cardview_resetpassword_button);
         Button quitButton = (Button) findViewById(R.id.resetpassword_cardview_quit_button);
         quitButton.setOnClickListener(new View.OnClickListener() {
@@ -1382,7 +1515,7 @@ public class LoginActivity extends AppCompatActivity {
         createAccountCardView.setVisibility(GONE);
         resetPasswordCardView.setVisibility(GONE);
         passwordCardView.setVisibility(VISIBLE);
-        resetPasswordQuestionsCardView.setVisibility(GONE);
+        //resetPasswordQuestionsCardView.setVisibility(GONE);
         realm = Realm.getDefaultInstance();
         Config config = realm.where(Config.class).findFirst();
         if (TextUtils.isEmpty(mPhoneNumber)) mPhoneNumber = config.getMobilePhone();
@@ -1710,6 +1843,18 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void gotoHome() {
+        final Config config = realm.where(Config.class).findFirst();
+        realm.beginTransaction();
+        config.setLoggedIn(true);
+        config.setLastPage(null);
+        realm.copyToRealmOrUpdate(config);
+        realm.commitTransaction();
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void gotoHome2() {
         DonationCenter donationCenter = realm.where(DonationCenter.class).equalTo("homeDonationCenter", true).findFirst();
         if (donationCenter != null) {
             finish();
@@ -1735,7 +1880,7 @@ public class LoginActivity extends AppCompatActivity {
                                 memberInfoRequest.setPhoneNumber(ApplicationUtils.cleanPhoneNumber(config.getMobilePhone()));
                                 memberInfoRequest.setPassword(config.getPassword());
                                 memberInfoRequest.setCenterCardId(center.getCardId());
-                                Call<UserLoginResponse> call2 = apiService.login(memberInfoRequest, "", ApplicationUtils.APP_ID);
+                                Call<UserLoginResponse> call2 = apiService.login(memberInfoRequest, getResources().getString(R.string.org_filter), "", ApplicationUtils.APP_ID);
                                 call2.enqueue(new Callback<UserLoginResponse>() {
                                     @Override
                                     public void onResponse(Call<UserLoginResponse> call, Response<UserLoginResponse> response) {
@@ -1744,6 +1889,9 @@ public class LoginActivity extends AppCompatActivity {
                                             sweetAlertDialog.setContentText("Success");
                                             realm.beginTransaction();
                                             realm.copyToRealmOrUpdate(response.body().getResponseData());
+                                            config.setLoggedIn(true);
+                                            config.setLastPage(null);
+                                            realm.copyToRealmOrUpdate(config);
                                             realm.commitTransaction();
                                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                             startActivity(intent);

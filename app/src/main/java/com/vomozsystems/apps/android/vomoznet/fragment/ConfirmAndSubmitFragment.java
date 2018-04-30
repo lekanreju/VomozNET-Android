@@ -602,7 +602,7 @@ public class ConfirmAndSubmitFragment extends Fragment {
         memberInfoRequest.setPhoneNumber(ApplicationUtils.cleanPhoneNumber(config.getMobilePhone()));
         memberInfoRequest.setPassword(config.getPassword());
         memberInfoRequest.setCenterCardId(paymentInfo.getColorWrapper().getCardId());
-        Call<UserLoginResponse> call = apiService.login(memberInfoRequest, "", ApplicationUtils.APP_ID);
+        Call<UserLoginResponse> call = apiService.login(memberInfoRequest, getActivity().getResources().getString(R.string.org_filter), "", ApplicationUtils.APP_ID);
         call.enqueue(new Callback<UserLoginResponse>() {
             @Override
             public void onResponse(Call<UserLoginResponse> call, Response<UserLoginResponse> response) {
@@ -770,7 +770,7 @@ public class ConfirmAndSubmitFragment extends Fragment {
                 memberInfoRequest.setPhoneNumber(ApplicationUtils.cleanPhoneNumber(config.getMobilePhone()));
                 memberInfoRequest.setPassword(config.getPassword());
                 memberInfoRequest.setCenterCardId(paymentInfo.getColorWrapper().getCardId());
-                Call<UserLoginResponse> call = apiService.login(memberInfoRequest, "", ApplicationUtils.APP_ID);
+                Call<UserLoginResponse> call = apiService.login(memberInfoRequest, getActivity().getResources().getString(R.string.org_filter), "", ApplicationUtils.APP_ID);
                 call.enqueue(new Callback<UserLoginResponse>() {
                     @Override
                     public void onResponse(Call<UserLoginResponse> call, Response<UserLoginResponse> response) {
@@ -1019,7 +1019,7 @@ public class ConfirmAndSubmitFragment extends Fragment {
             memberInfoRequest.setPhoneNumber(ApplicationUtils.cleanPhoneNumber(config.getMobilePhone()));
             memberInfoRequest.setPassword(config.getPassword());
             memberInfoRequest.setCenterCardId(donationCenter.getCardId());
-            Call<UserLoginResponse> call = apiService.login(memberInfoRequest, "", ApplicationUtils.APP_ID);
+            Call<UserLoginResponse> call = apiService.login(memberInfoRequest, getActivity().getResources().getString(R.string.org_filter),"", ApplicationUtils.APP_ID);
             call.enqueue(new Callback<UserLoginResponse>() {
                 @Override
                 public void onResponse(Call<UserLoginResponse> call, Response<UserLoginResponse> response) {

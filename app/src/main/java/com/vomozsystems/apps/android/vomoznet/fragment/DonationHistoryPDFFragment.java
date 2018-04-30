@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.Display;
@@ -146,14 +147,24 @@ public class DonationHistoryPDFFragment extends DialogFragment {
                                 User user = new User();
                                 //String filename="contacts_sid.vcf";
                                 //File filelocation = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), filename);
-                                Uri path = Uri.fromFile(file);
+                                //Uri path = Uri.fromFile(file);
+                                Intent install = new Intent(Intent.ACTION_VIEW);
+                                install.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                                Uri apkURI = FileProvider.getUriForFile(
+                                        getActivity(),
+                                        getActivity().getApplicationContext()
+                                                .getPackageName() + ".provider", file);
+                                install.setDataAndType(apkURI, "application/pdf");
+                                install.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
                                 Intent emailIntent = new Intent(Intent.ACTION_SEND);
                                 // set the type to 'email'
                                 emailIntent.setType("vnd.android.cursor.dir/email");
                                 String to[] = {user.getEmail()};
                                 emailIntent.putExtra(Intent.EXTRA_EMAIL, to);
                                 // the attachment
-                                emailIntent.putExtra(Intent.EXTRA_STREAM, path);
+                                emailIntent.putExtra(Intent.EXTRA_STREAM, apkURI);
                                 // the mail subject
                                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, "VomozPay Donation History");
                                 startActivity(Intent.createChooser(emailIntent, "Send email..."));

@@ -31,6 +31,7 @@ import com.vomozsystems.apps.android.vomoznet.entity.Config;
 import com.vomozsystems.apps.android.vomoznet.entity.DonationCenter;
 import com.vomozsystems.apps.android.vomoznet.entity.DonationHistory;
 import com.vomozsystems.apps.android.vomoznet.entity.User;
+import com.vomozsystems.apps.android.vomoznet.fragment.ChooseDefaultDonationCenterDialogFragment;
 import com.vomozsystems.apps.android.vomoznet.fragment.DonationHistoryFragment;
 import com.vomozsystems.apps.android.vomoznet.fragment.HomeFragment;
 import com.vomozsystems.apps.android.vomoznet.fragment.MyProfileFragment;
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnHo
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private int selectedOption = 0;
+    private HomeFragment homeFragment;
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -92,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnHo
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
+        homeFragment = HomeFragment.newInstance();
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -111,26 +113,26 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnHo
 
                 DonationCenter donationCenter = realm.where(DonationCenter.class).equalTo("homeDonationCenter", true).findFirst();
                 if(donationCenter == null) {
-                    ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-                    Call<DonationCenterResponse> call2 = apiInterface.getAll(getResources().getString(R.string.org_filter));
-                    call2.enqueue(new Callback<DonationCenterResponse>() {
-                        @Override
-                        public void onResponse(Call<DonationCenterResponse> call, final Response<DonationCenterResponse> response) {
-                            if (response.isSuccessful()) {
-                                realm.beginTransaction();
-                                realm.delete(DonationCenter.class);
-                                realm.copyToRealmOrUpdate(response.body().getResponseData());
-                                realm.commitTransaction();
-                                updateHomeDonationCenter();
-                                sendCloudRegistrationToken();
+                        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                        Call<DonationCenterResponse> call2 = apiInterface.getAll(getResources().getString(R.string.org_filter));
+                        call2.enqueue(new Callback<DonationCenterResponse>() {
+                            @Override
+                            public void onResponse(Call<DonationCenterResponse> call, final Response<DonationCenterResponse> response) {
+                                if (response.isSuccessful()) {
+                                    realm.beginTransaction();
+                                    realm.delete(DonationCenter.class);
+                                    realm.copyToRealmOrUpdate(response.body().getResponseData());
+                                    realm.commitTransaction();
+                                    setHomeDonationCenter();
+                                    sendCloudRegistrationToken();
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onFailure(Call<DonationCenterResponse> call, Throwable t) {
+                            @Override
+                            public void onFailure(Call<DonationCenterResponse> call, Throwable t) {
 
-                        }
-                    });
+                            }
+                        });
 
                 }
 
@@ -265,7 +267,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnHo
         public Fragment getItem(int position) {
             switch(position) {
                 case 0:
-                    return HomeFragment.newInstance();
+                    return homeFragment;
                 case 1:
                     return MyProfileFragment.newInstance("","");
                 case 2:
@@ -295,76 +297,71 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnHo
         }
     }
 
-    private void getUserDonationCenters() {
-        final Realm realm = Realm.getDefaultInstance();
+    private void setHomeDonationCenter() {
+        Realm realm = Realm.getDefaultInstance();
         Config config = realm.where(Config.class).findFirst();
-        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<DonationCenterResponse> call = apiService.getDonationCenters(ApplicationUtils.cleanPhoneNumber(config.getMobilePhone()), getResources().getString(R.string.org_filter), "", "");
-        call.enqueue(new Callback<DonationCenterResponse>() {
-            @Override
-            public void onResponse(Call<DonationCenterResponse> call, Response<DonationCenterResponse> response) {
-                if(response.isSuccessful() && null != response.body() & null != response.body().getResponseData() && response.body().getResponseData().size()>0) {
-                    realm.beginTransaction();
-                    realm.copyToRealmOrUpdate(response.body().getResponseData());
-                    realm.commitTransaction();
-                    DonationCenter donationCenter = realm.where(DonationCenter.class).equalTo("homeDonationCenter", true).findFirst();
-                    if(donationCenter == null) {
-                        updateHomeDonationCenter();
-                    }
-                }else {
-                    // present donation centers in orgFilter and sign up
-                    updateHomeDonationCenter();
+        final List<DonationCenter> donationCenterList = realm.copyFromRealm(realm.where(DonationCenter.class).findAll());
+        if(null != donationCenterList && donationCenterList.size()>0) {
+            DonationCenter homeDonationCenter = null;
+            for(DonationCenter donationCenter1: donationCenterList) {
+                if(donationCenter1.getCardId().equals(config.getCurrentDonationCenterCardId())) {
+                    homeDonationCenter = donationCenter1;
+                    break;
                 }
             }
-
-            @Override
-            public void onFailure(Call<DonationCenterResponse> call, Throwable t) {
-                Log.i("", getClass().getSimpleName());
+            if(homeDonationCenter!=null) {
+                realm.beginTransaction();
+                homeDonationCenter.setHomeDonationCenter(true);
+                realm.copyToRealmOrUpdate(homeDonationCenter);
+                realm.commitTransaction();
+                downLoadUser(homeDonationCenter);
             }
-        });
+            else {
+//                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//                // Set the dialog title
+//                final String[] items = new String[donationCenterList.size()];
+//                for (int i = 0; i < donationCenterList.size(); i++) {
+//                    items[i] = donationCenterList.get(i).getName();
+//                }
+//                builder.setTitle("Choose Default Donation Center")
+//                        // Specify the list array, the items to be selected by default (null for none),
+//                        // and the listener through which to receive callbacks when items are selected
+//                        .setSingleChoiceItems(items, selectedOption, new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                selectedOption = which;
+//                            }
+//                        })
+//                        // Set the action buttons
+//                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int id) {
+//                                DonationCenter donationCenter = donationCenterList.get(selectedOption);
+//                                signUpToADonationCenter(donationCenter);
+//
+//                            }
+//                        })
+//                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int id) {
+//
+//                            }
+//                        });
+//                AlertDialog dialog = builder.create();
+//                dialog.show();
 
-    }
-
-    private void updateHomeDonationCenter() {
-        Realm realm = Realm.getDefaultInstance();
-        final List<DonationCenter> donationCenterList = realm.where(DonationCenter.class).findAll();
-        if(null != donationCenterList && donationCenterList.size()>0) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-            // Set the dialog title
-            final String[] items = new String[donationCenterList.size()];
-            for (int i = 0; i < donationCenterList.size(); i++) {
-                items[i] = donationCenterList.get(i).getName();
+                ChooseDefaultDonationCenterDialogFragment fragment = ChooseDefaultDonationCenterDialogFragment.newInstance(donationCenterList, this);
+                fragment.show(getSupportFragmentManager(), "");
             }
-            builder.setTitle("Choose Default Donation Center")
-                    // Specify the list array, the items to be selected by default (null for none),
-                    // and the listener through which to receive callbacks when items are selected
-                    .setSingleChoiceItems(items, selectedOption, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            selectedOption = which;
-                        }
-                    })
-                    // Set the action buttons
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int id) {
-                            DonationCenter donationCenter = donationCenterList.get(selectedOption);
-                            signUpToADonationCenter(donationCenter);
-
-                        }
-                    })
-                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int id) {
-
-                        }
-                    });
-            AlertDialog dialog = builder.create();
-            dialog.show();
+        }else {
+            SweetAlertDialog dialog1 = new SweetAlertDialog(MainActivity.this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText(getResources().getString(R.string.app_name))
+                    .setContentText("Network Failure\n\n" + getResources().getString(R.string.org_type) + " configuration problem");
+            dialog1.show();
         }
     }
 
-    private void signUpToADonationCenter(final DonationCenter donationCenter) {
+    public void signUpToADonationCenter(final DonationCenter donationCenter) {
         final Realm realm = Realm.getDefaultInstance();
         Config config = realm.where(Config.class).findFirst();
         MakeDonationInterface makeDonationInterface = ApplicationUtils.getDonationInterface();
@@ -417,7 +414,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnHo
         memberInfoRequest.setPhoneNumber(ApplicationUtils.cleanPhoneNumber(config.getMobilePhone()));
         memberInfoRequest.setPassword(config.getPassword());
         memberInfoRequest.setCenterCardId(donationCenter.getCardId());
-        Call<UserLoginResponse> call = apiService.login(memberInfoRequest, "", ApplicationUtils.APP_ID);
+        Call<UserLoginResponse> call = apiService.login(memberInfoRequest, getResources().getString(R.string.org_filter),"", ApplicationUtils.APP_ID);
         call.enqueue(new Callback<UserLoginResponse>() {
             @Override
             public void onResponse(Call<UserLoginResponse> call, Response<UserLoginResponse> response) {
@@ -431,13 +428,15 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnHo
                     for(DonationCenter donationCenter1: centers) {
                         if(!donationCenter1.getCardId().equals(donationCenter.getCardId())) {
                             donationCenter1.setHomeDonationCenter(false);
+                        }else {
+                            donationCenter1.setHomeDonationCenter(true);
                         }
                     }
                     realm.copyToRealmOrUpdate(centers);
                     realm.commitTransaction();
                     DonationCenter donationCenter = realm.where(DonationCenter.class).equalTo("homeDonationCenter", true).findFirst();
-                    if(donationCenter == null) {
-
+                    if(donationCenter != null) {
+                        homeFragment.onResume();
                     }
                 } else {
                     SweetAlertDialog dialog1 = new SweetAlertDialog(MainActivity.this, SweetAlertDialog.ERROR_TYPE)
