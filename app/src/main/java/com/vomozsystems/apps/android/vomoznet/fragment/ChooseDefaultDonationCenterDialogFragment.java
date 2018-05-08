@@ -139,11 +139,6 @@ public class ChooseDefaultDonationCenterDialogFragment extends DialogFragment {
 
         });
 
-        SweetAlertDialog dialog1 = new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
-                .setTitleText(getResources().getString(R.string.app_name))
-                .setContentText("No default " + getResources().getString(R.string.org_type) + " found.\n\nPlease choose or set one");
-        dialog1.show();
-
         return view;
     }
 

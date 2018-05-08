@@ -62,7 +62,7 @@ public class GiveActivity extends AppCompatActivity implements BaseSearchFragmen
 
         howToGiveFragment = HowToGiveFragment.newInstance(1);
         contributionAmountFragment = ContributionAmountFragment.newInstance();
-        confirmAndSubmitFragment = ConfirmAndSubmitFragment.newInstance();
+        confirmAndSubmitFragment = ConfirmAndSubmitFragment.newInstance(new PaymentInfo());
         chooseReceiverFragment = ChooseReceiverFragment.newInstance(new PaymentInfo());
 
         // Show the Up button in the action bar.
@@ -166,7 +166,7 @@ public class GiveActivity extends AppCompatActivity implements BaseSearchFragmen
         this.paymentInfo = paymentInfo;
         howToGiveFragment = HowToGiveFragment.newInstance(1);
         contributionAmountFragment = ContributionAmountFragment.newInstance();
-        confirmAndSubmitFragment = ConfirmAndSubmitFragment.newInstance();
+        confirmAndSubmitFragment = ConfirmAndSubmitFragment.newInstance(new PaymentInfo());
         chooseReceiverFragment = ChooseReceiverFragment.newInstance(new PaymentInfo());
         getSupportFragmentManager().beginTransaction().replace(R.id.item_detail_container, chooseReceiverFragment)
                 .commit();

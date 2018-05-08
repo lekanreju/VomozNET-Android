@@ -84,7 +84,7 @@
                         android:gravity="left"
                         android:text="Unknown"
                         android:textColor="@color/white"
-                        android:textSize="30sp" />
+                        android:textSize="25sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -97,11 +97,13 @@
                             android:id="@+id/text_user_mobile_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-light"
                             android:text="Tel: "
                             android:textColor="@color/white"
                             android:textSize="18sp" />
 
                         <TextView
+                            android:fontFamily="sans-serif-light"
                             android:id="@+id/text_mobile_phone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -110,56 +112,51 @@
                             android:textSize="18sp" />
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/contributions_label_textview"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-condensed"
-                        android:gravity="left"
-                        android:textColor="@color/white"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal">
 
-                    <android.support.v7.widget.RecyclerView
+                        <TextView
+                            android:id="@+id/contributions_label_textview_message"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="0dp"
+                            android:layout_gravity="center"
+                            android:fontFamily="sans-serif-condensed"
+                            android:gravity="center"
+                            android:text="2018 Contributions: "
+                            android:textColor="@color/white"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/contributions_label_textview"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="sans-serif-condensed"
+                            android:gravity="left"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:text="$20000.00 USD"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+                   <!-- <android.support.v7.widget.RecyclerView
                         android:id="@+id/item_list"
                         android:name="com.vomozsystems.apps.android.vomozpay.ItemListFragment"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         app:layoutManager="LinearLayoutManager"
                         tools:context="com.vomozsystems.apps.android.vomozpay.HomeActivity"
-                        tools:listitem="@layout/item_list_content" />
+                        tools:listitem="@layout/item_list_content" />-->
 
                 </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-
-
-                    <TextView
-                        android:id="@+id/contributions_label_textview_message"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-condensed"
-                        android:gravity="center"
-                        android:textColor="@color/white"
-                        android:textSize="15sp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
 
         </LinearLayout>
     </android.support.v7.widget.CardView>
@@ -191,6 +188,7 @@
         card_view:cardPreventCornerOverlap="false"
         card_view:cardUseCompatPadding="true">
 
+        <!--
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -224,7 +222,7 @@
                 android:paddingStart="20dp"
                 android:text="Give"
                 android:textColor="@color/white" />
-        </LinearLayout>
+        </LinearLayout> -->
 
     </android.support.v7.widget.CardView>
 

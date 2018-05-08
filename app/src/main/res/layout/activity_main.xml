@@ -29,7 +29,7 @@
 
         </android.support.v7.widget.Toolbar>
 
-        <android.support.design.widget.TabLayout
+        <!--<android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             app:tabMaxWidth="0dp"
             app:tabGravity="fill"
@@ -57,13 +57,123 @@
                 android:layout_height="wrap_content"
                 android:text="History" />
 
-        </android.support.design.widget.TabLayout>
+        </android.support.design.widget.TabLayout>-->
     </android.support.design.widget.AppBarLayout>
 
+    <!--
     <android.support.v4.view.ViewPager
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+     -->
+
+    <fragment
+        class="com.vomozsystems.apps.android.vomoznet.fragment.HomeFragment"
+        android:id="@+id/home_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/white"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="-15dp"
+        android:layout_marginBottom="15dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:gravity="center">
+            <com.pkmmte.view.CircularImageView
+                android:id="@+id/img_give"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/ic_give_1"
+                android:background="@color/colorPrimary"
+                app:border="true"
+                app:border_width="1dp"
+                app:shadow="false" />
+            <TextView
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="@color/white"
+                android:text="GIVE"
+                android:fontFamily="sans-serif-light"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:gravity="center">
+            <com.pkmmte.view.CircularImageView
+                android:id="@+id/img_my_church"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/ic_church"
+                android:background="@color/colorPrimary"
+                app:border="true"
+                app:border_width="1dp"
+                app:shadow="false" />
+            <TextView
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="@color/white"
+                android:text="MY CHURCH"
+                android:fontFamily="sans-serif-light"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:gravity="center">
+            <com.pkmmte.view.CircularImageView
+                android:id="@+id/img_my_profile"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/ic_my_profile_1"
+                android:background="@color/colorPrimary"
+                app:border="true"
+                app:border_width="1dp"
+                app:shadow="false" />
+            <TextView
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="@color/white"
+                android:text="MY PROFILE"
+                android:fontFamily="sans-serif-light"/>
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

@@ -255,7 +255,9 @@ public class LoginFragment extends Fragment {
         } catch (NumberParseException e) {
             return "Invalid phone number";
         }
-        String message = ApplicationUtils.validatePassword(passwordEditText.getText().toString());
+        Realm realm = Realm.getDefaultInstance();
+        final Config config = realm.where(Config.class).findFirst();
+        String message = ApplicationUtils.validatePassword(passwordEditText.getText().toString(), config);
         return message;
     }
 

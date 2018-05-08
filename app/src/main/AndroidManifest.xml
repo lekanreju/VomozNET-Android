@@ -147,7 +147,8 @@
         <activity
             android:name=".SimpleLoginActivity"
             android:label="@string/title_activity_simple_login"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".AgreementActivity"></activity>
     </application>
 
 </manifest>

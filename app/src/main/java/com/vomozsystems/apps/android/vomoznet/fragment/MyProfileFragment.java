@@ -323,6 +323,9 @@ public class MyProfileFragment extends Fragment {
         EditText passwordEditText = (EditText) view.findViewById(R.id.password_cardview_password_edit_txt);
         passwordEditText = (EditText) view.findViewById(R.id.edit_password);
 
+        Realm realm = Realm.getDefaultInstance();
+        final Config config = realm.where(Config.class).findFirst();
+
         if(firstNameEditText.getText().toString().length() < 2) {
             message = "First name is not valid";
         }
@@ -340,7 +343,7 @@ public class MyProfileFragment extends Fragment {
         else if (question2Answer.getText().toString().length() == 0)
             message = "Answer second question";
         else
-            message = ApplicationUtils.validatePassword(passwordEditText.getText().toString());
+            message = ApplicationUtils.validatePassword(passwordEditText.getText().toString(), config);
 
         return message;
     }

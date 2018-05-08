@@ -105,27 +105,45 @@ public class SetDefaultDonationCenterRecyclerViewAdapter extends RecyclerView.Ad
             @Override
             public void onClick(View v) {
 
-                final SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(activity, SweetAlertDialog.WARNING_TYPE)
+//                final SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(activity, SweetAlertDialog.PROGRESS_TYPE)
+//                        .setTitleText(getActivity().getResources().getString(R.string.app_name))
+//                        .setContentText("Change default organization to " + mValues.get(position).getShortName() + "?")
+//                        .setConfirmText("Change")
+//                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+//                            @Override
+//                            public void onClick(SweetAlertDialog sDialog) {
+//                                activity.signUpToADonationCenter(mValues.get(position));
+//                                sDialog.setContentText("Done");
+//                                sDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+//                            }
+//                        });
+//
+//                sweetAlertDialog.show();
+
+                new SweetAlertDialog(activity, SweetAlertDialog.WARNING_TYPE)
                         .setTitleText(getActivity().getResources().getString(R.string.app_name))
                         .setContentText("Change default organization to " + mValues.get(position).getShortName() + "?")
                         .setConfirmText("Change")
-                        .setCancelText("Cancel")
                         .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sDialog) {
                                 activity.signUpToADonationCenter(mValues.get(position));
-                                sDialog.dismissWithAnimation();
+                                sDialog
+                                        .setContentText("Done")
+                                        .setConfirmText("OK")
+                                        .setConfirmClickListener(null)
+                                        .changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
 
                             }
                         })
-                        .showCancelButton(true)
+                        .setCancelText("No")
                         .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
-                            public void onClick(SweetAlertDialog sDialog) {
-                                sDialog.cancel();
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                sweetAlertDialog.dismissWithAnimation();
                             }
-                        });
-                sweetAlertDialog.show();
+                        })
+                        .show();
             }
         });
     }

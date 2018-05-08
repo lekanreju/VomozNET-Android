@@ -97,8 +97,9 @@ public class ConfirmAndSubmitFragment extends Fragment {
      * @return A new instance of fragment ConfirmAndSubmitFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ConfirmAndSubmitFragment newInstance() {
+    public static ConfirmAndSubmitFragment newInstance(PaymentInfo paymentInfo) {
         ConfirmAndSubmitFragment fragment = new ConfirmAndSubmitFragment();
+        fragment.paymentInfo = paymentInfo;
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -201,74 +202,72 @@ public class ConfirmAndSubmitFragment extends Fragment {
         });
         Realm realm = Realm.getDefaultInstance();
 
-        String currencyCode = "USD";
-        String engineType = paymentInfo.getPaymentEngine().get("type");
+        if(paymentInfo != null) {
+            String currencyCode = "USD";
+            String engineType = paymentInfo.getPaymentEngine().get("type");
 
-        if(engineType.equalsIgnoreCase("PAYSTACK")) {
-            currencyCode = paymentInfo.getPaymentEngine().get("paystack_currency");
-        }
-        else if(engineType.equalsIgnoreCase("RAVE")) {
-            currencyCode = paymentInfo.getPaymentEngine().get("rave_currency");
-        }
-        else if(engineType.equalsIgnoreCase("PAYPAL")) {
-            currencyCode = paymentInfo.getPaymentEngine().get("paypal_currency");
-        }
-
-        organizationTextView.setText(paymentInfo.getColorWrapper().getName());
-        List<ContributionType> types = realm.where(ContributionType.class).findAll();
-        Double total = 0D;
-        for (ContributionType contributionType : types) {
-            total += contributionType.getAmount();
-        }
-        amountTextView.setText(ApplicationUtils.getCurrencySymbol(currencyCode) + numberFormat.format(total) + " " + currencyCode);
-        CreditCard creditCard = paymentInfo.getCreditCard();
-
-        if(paymentInfo.getPaymentEngine().get("type").equalsIgnoreCase("paystack")) {
-            cardOrAccountTextView.setText("Paystack");
-            cardOrAccountImageView.setImageResource(R.mipmap.ic_markc);
-        } else if(paymentInfo.getPaymentEngine().get("type").equalsIgnoreCase("rave")) {
-            cardOrAccountTextView.setText("Rave");
-            cardOrAccountImageView.setImageResource(R.mipmap.ic_rave);
-        }
-        else if(paymentInfo.getPaymentEngine().get("type").equalsIgnoreCase("paypal")) {
-            cardOrAccountTextView.setText("Paypal");
-            cardOrAccountImageView.setImageResource(R.mipmap.ic_paypal_color);
-        }else if(paymentInfo.getPaymentEngine().get("type").equalsIgnoreCase("check")) {
-            selectedBankAccount = new BankAccount();
-            selectedBankAccount.setAccountNumber(creditCard.getAccountNumber());
-            selectedBankAccount.setRoutingNumber(creditCard.getRoutingNumber());
-            cardOrAccountImageView.setImageResource(R.mipmap.ic_bankaccount);
-            if (null != selectedBankAccount && null != selectedBankAccount.getAccountNumber()) {
-                String ex = "****-" + selectedBankAccount.getAccountNumber().substring(selectedBankAccount.getAccountNumber().length() - 4);
-                cardOrAccountTextView.setText(ex);
+            if (engineType.equalsIgnoreCase("PAYSTACK")) {
+                currencyCode = paymentInfo.getPaymentEngine().get("paystack_currency");
+            } else if (engineType.equalsIgnoreCase("RAVE")) {
+                currencyCode = paymentInfo.getPaymentEngine().get("rave_currency");
+            } else if (engineType.equalsIgnoreCase("PAYPAL")) {
+                currencyCode = paymentInfo.getPaymentEngine().get("paypal_currency");
             }
-        }else {
-            selectedCreditCard = creditCard;
-            try {
-                if (selectedCreditCard.getCreditCardNumber().startsWith("4")) {
-                    cardOrAccountImageView.setImageResource(R.mipmap.ic_visa);
-                } else if (selectedCreditCard.getCreditCardNumber().startsWith("5")) {
-                    cardOrAccountImageView.setImageResource(R.mipmap.ic_mastercard);
-                } else if (selectedCreditCard.getCreditCardNumber().startsWith("3")) {
-                    cardOrAccountImageView.setImageResource(R.mipmap.ic_amex);
-                } else {
-                    cardOrAccountImageView.setImageResource(R.mipmap.ic_card);
-                }
-                if (null != selectedCreditCard.getCreditCardId()) {
-                    if (selectedCreditCard.getLast4Digits().equalsIgnoreCase("0")) {
-                        String ex = "****-" + selectedCreditCard.getCreditCardNumber().substring(selectedCreditCard.getCreditCardNumber().length() - 4);
-                        cardOrAccountTextView.setText(ex);
-                    } else
-                        cardOrAccountTextView.setText("****-" + selectedCreditCard.getLast4Digits());
-                } else {
-                    String ex = "****-" + selectedCreditCard.getCreditCardNumber().substring(selectedCreditCard.getCreditCardNumber().length() - 4);
+
+            organizationTextView.setText(paymentInfo.getColorWrapper().getName());
+            List<ContributionType> types = realm.where(ContributionType.class).findAll();
+            Double total = 0D;
+            for (ContributionType contributionType : types) {
+                total += contributionType.getAmount();
+            }
+            amountTextView.setText(ApplicationUtils.getCurrencySymbol(currencyCode) + numberFormat.format(total) + " " + currencyCode);
+            CreditCard creditCard = paymentInfo.getCreditCard();
+
+            if (paymentInfo.getPaymentEngine().get("type").equalsIgnoreCase("paystack")) {
+                cardOrAccountTextView.setText("Paystack");
+                cardOrAccountImageView.setImageResource(R.mipmap.ic_markc);
+            } else if (paymentInfo.getPaymentEngine().get("type").equalsIgnoreCase("rave")) {
+                cardOrAccountTextView.setText("Rave");
+                cardOrAccountImageView.setImageResource(R.mipmap.ic_rave);
+            } else if (paymentInfo.getPaymentEngine().get("type").equalsIgnoreCase("paypal")) {
+                cardOrAccountTextView.setText("Paypal");
+                cardOrAccountImageView.setImageResource(R.mipmap.ic_paypal_color);
+            } else if (paymentInfo.getPaymentEngine().get("type").equalsIgnoreCase("check")) {
+                selectedBankAccount = new BankAccount();
+                selectedBankAccount.setAccountNumber(creditCard.getAccountNumber());
+                selectedBankAccount.setRoutingNumber(creditCard.getRoutingNumber());
+                cardOrAccountImageView.setImageResource(R.mipmap.ic_bankaccount);
+                if (null != selectedBankAccount && null != selectedBankAccount.getAccountNumber()) {
+                    String ex = "****-" + selectedBankAccount.getAccountNumber().substring(selectedBankAccount.getAccountNumber().length() - 4);
                     cardOrAccountTextView.setText(ex);
                 }
-            }catch(Exception e){
+            } else {
+                selectedCreditCard = creditCard;
+                try {
+                    if (selectedCreditCard.getCreditCardNumber().startsWith("4")) {
+                        cardOrAccountImageView.setImageResource(R.mipmap.ic_visa);
+                    } else if (selectedCreditCard.getCreditCardNumber().startsWith("5")) {
+                        cardOrAccountImageView.setImageResource(R.mipmap.ic_mastercard);
+                    } else if (selectedCreditCard.getCreditCardNumber().startsWith("3")) {
+                        cardOrAccountImageView.setImageResource(R.mipmap.ic_amex);
+                    } else {
+                        cardOrAccountImageView.setImageResource(R.mipmap.ic_card);
+                    }
+                    if (null != selectedCreditCard.getCreditCardId()) {
+                        if (selectedCreditCard.getLast4Digits().equalsIgnoreCase("0")) {
+                            String ex = "****-" + selectedCreditCard.getCreditCardNumber().substring(selectedCreditCard.getCreditCardNumber().length() - 4);
+                            cardOrAccountTextView.setText(ex);
+                        } else
+                            cardOrAccountTextView.setText("****-" + selectedCreditCard.getLast4Digits());
+                    } else {
+                        String ex = "****-" + selectedCreditCard.getCreditCardNumber().substring(selectedCreditCard.getCreditCardNumber().length() - 4);
+                        cardOrAccountTextView.setText(ex);
+                    }
+                } catch (Exception e) {
 
+                }
             }
         }
-
         return view;
     }
 
@@ -608,6 +607,7 @@ public class ConfirmAndSubmitFragment extends Fragment {
             public void onResponse(Call<UserLoginResponse> call, Response<UserLoginResponse> response) {
                 if (response.isSuccessful() && null != response.body().getResponseData()) {
                     realm.beginTransaction();
+                    realm.delete(User.class);
                     User user = response.body().getResponseData();
                     realm.copyToRealmOrUpdate(user);
                     realm.commitTransaction();
@@ -904,7 +904,7 @@ public class ConfirmAndSubmitFragment extends Fragment {
                     receivingDonationCenterId,
                     receivingMerchantIdCode,
                     selectedCreditCard.getId(),
-                    donateToDefaultDonationCenter,
+                    (cardSourceDonationCenterId.equals(receivingDonationCenterId) ? "1" : "0"),
                     ApplicationUtils.cleanPhoneNumber(config.getMobilePhone()),
                     config.getFirstName(),
                     config.getLastName(),

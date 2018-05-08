@@ -156,8 +156,8 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
         final TextView contributionsLabelTextViewMessage = view.findViewById(R.id.contributions_label_textview_message);
         Calendar now = Calendar.getInstance();
         int year = now.get(Calendar.YEAR);
-        contributionsLabelTextView.setText("Total " + year + " Contributions");
-        contributionsLabelTextViewMessage.setText("No contributions found for " + year);
+//        contributionsLabelTextView.setText("Total " + year + " Contributions");
+//        contributionsLabelTextViewMessage.setText("No contributions found for " + year);
 
         showUserDetails(view);
 
@@ -208,9 +208,9 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
                             totalDonations.add(totalDonation);
                             contributionsLabelTextViewMessage.setVisibility(GONE);
                         }
-                        setupRecyclerView(recyclerView, totalDonations);
+//                        setupRecyclerView(recyclerView, totalDonations);
                     }else {
-                        contributionsLabelTextViewMessage.setText("No contributions found");
+                        //contributionsLabelTextViewMessage.setText("No contributions found");
                     }
                 }
 
@@ -238,7 +238,10 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
                     int i = 0;
                     for(Slider slider: response.body().getResponseData()) {
                         i++;
-                        url_maps.put(i+"", slider.getUrl());
+                        if(slider.getUrl()!=null && slider.getUrl().equalsIgnoreCase("0"))
+                            url_maps.put(i+"", slider.getName());
+                        else
+                            url_maps.put(i+"", slider.getUrl());
                     }
 
                     for (Map.Entry<String, String> entry : url_maps.entrySet()) {
@@ -257,7 +260,6 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
 
                         mDemoSlider.addSlider(textSliderView);
                     }
-
 
                     mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
                     mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
@@ -279,42 +281,42 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_home, container, false);
-        recyclerView = view.findViewById(R.id.item_list);
+//        recyclerView = view.findViewById(R.id.item_list);
         mDemoSlider = (SliderLayout)view.findViewById(R.id.slider);
 
 
 
-        Button giveButton = (Button) view.findViewById(R.id.give_button);
-        giveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Realm realm = Realm.getDefaultInstance();
-                DonationCenter donationCenter = realm.where(DonationCenter.class).equalTo("homeDonationCenter", true).findFirst();
-                User user = realm.where(User.class).findFirst();
-                if(donationCenter!=null && user!=null) {
-                    Intent intent = new Intent(getActivity(), GiveActivity.class);
-                    startActivity(intent);
-                }else {
-                    ((MainActivity)getActivity()).onResume();
-                }
-            }
-        });
-
-        Button myChurchButton = (Button) view.findViewById(R.id.my_church_button);
-        myChurchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Realm realm = Realm.getDefaultInstance();
-                DonationCenter donationCenter = realm.where(DonationCenter.class).equalTo("homeDonationCenter", true).findFirst();
-                User user = realm.where(User.class).findFirst();
-                if(donationCenter!=null && user!=null) {
-                    Intent intent = new Intent(getActivity(), MyChurchActivity.class);
-                    startActivity(intent);
-                }else {
-                    ((MainActivity)getActivity()).onResume();
-                }
-            }
-        });
+//        Button giveButton = (Button) view.findViewById(R.id.give_button);
+//        giveButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Realm realm = Realm.getDefaultInstance();
+//                DonationCenter donationCenter = realm.where(DonationCenter.class).equalTo("homeDonationCenter", true).findFirst();
+//                User user = realm.where(User.class).findFirst();
+//                if(donationCenter!=null && user!=null) {
+//                    Intent intent = new Intent(getActivity(), GiveActivity.class);
+//                    startActivity(intent);
+//                }else {
+//                    ((MainActivity)getActivity()).onResume();
+//                }
+//            }
+//        });
+//
+//        Button myChurchButton = (Button) view.findViewById(R.id.my_church_button);
+//        myChurchButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Realm realm = Realm.getDefaultInstance();
+//                DonationCenter donationCenter = realm.where(DonationCenter.class).equalTo("homeDonationCenter", true).findFirst();
+//                User user = realm.where(User.class).findFirst();
+//                if(donationCenter!=null && user!=null) {
+//                    Intent intent = new Intent(getActivity(), MyChurchActivity.class);
+//                    startActivity(intent);
+//                }else {
+//                    ((MainActivity)getActivity()).onResume();
+//                }
+//            }
+//        });
 
         return view;
     }
@@ -456,6 +458,15 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
 
             }
         }
+
+        imgPerson = view.findViewById(R.id.img_user_profile);
+        imgPerson.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectImage();
+            }
+        });
+
     }
 
     public static class SimpleItemRecyclerViewAdapter
@@ -514,6 +525,8 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
 
 
     public void loadPersonImage(User user) {
+        final Realm realm = Realm.getDefaultInstance();
+        int size = realm.where(User.class).findAll().size();
         if (null != user && null != user.getProfileImage() && !user.getProfileImage().equals("0")) {
             final ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progress);
             progressBar.setVisibility(View.VISIBLE);
@@ -522,7 +535,7 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
                 Picasso.with(getActivity())
                         .load(url)
                         .resize(70, 70)
-                        .centerCrop()
+                        .centerCrop().noPlaceholder()
                         //.placeholder(R.mipmap.ic_user_default)
                         .into(imgPerson, new com.squareup.picasso.Callback() {
                             @Override
@@ -610,7 +623,8 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
         btnSetImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectImage();
+                //selectImage();
+                displayProfileImage();
             }
         });
 
@@ -684,6 +698,7 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
                     final String filePath = selectedFilePath;
                     progressDialog = ProgressDialog.show(getActivity(), "", "Uploading File...", true);
                     Realm realm = Realm.getDefaultInstance();
+                    DonationCenter donationCenter = realm.where(DonationCenter.class).equalTo("homeDonationCenter", true).findFirst();
                     User user = realm.where(User.class).findFirst();
                     final Map<String, String> params = new HashMap<String, String>();
                     params.put("xAppSysAuthToken", "35a6989dcdaf55e286851a11abe994a4");
@@ -903,10 +918,14 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
                 progressDialog.setTitle("Server response received - " + serverResponseCode);
                 if (serverResponseCode == 200) {
                     progressDialog.dismiss();
+                    final Realm realm = Realm.getDefaultInstance();
+                    User user = realm.where(User.class).findFirst();
+
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             Toast.makeText(getActivity(), "Picture profile uploaded successfully", Toast.LENGTH_LONG).show();
+
                             final ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
                             final MemberInfoRequest request = new MemberInfoRequest();
                             final Realm realm = Realm.getDefaultInstance();
@@ -917,12 +936,14 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
                             String savedPassword = config.getPassword(); //PreferenceManager.getDefaultSharedPreferences(BaseActivity.this).getString(SimpleLoginActivity.PASSWORD_LABEL, null);
                             request.setPhoneNumber(savedPhone);
                             request.setPassword(savedPassword);
+                            request.setCenterCardId(donationCenter.getCardId());
                             final Call<UserLoginResponse> call = apiService.login(request, getActivity().getResources().getString(R.string.org_filter),"", ApplicationUtils.APP_ID);
                             call.enqueue(new Callback<UserLoginResponse>() {
                                 @Override
                                 public void onResponse(Call<UserLoginResponse> call, Response<UserLoginResponse> response) {
                                     if (null != response && response.isSuccessful()) {
                                         realm.beginTransaction();
+                                        realm.delete(User.class);
                                         User user = response.body().getResponseData();
                                         realm.copyToRealmOrUpdate(user);
                                         realm.commitTransaction();

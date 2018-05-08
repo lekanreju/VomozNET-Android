@@ -52,6 +52,7 @@ import com.vomozsystems.apps.android.vomoznet.service.GetReferenceDataResponse;
 import com.vomozsystems.apps.android.vomoznet.service.MakeDonationInterface;
 import com.vomozsystems.apps.android.vomoznet.service.MemberInfoRequest;
 import com.vomozsystems.apps.android.vomoznet.service.SendAuthCodeResponse;
+import com.vomozsystems.apps.android.vomoznet.service.SendEmailResponse;
 import com.vomozsystems.apps.android.vomoznet.service.UserLoginResponse;
 import com.vomozsystems.apps.android.vomoznet.service.VomozGlobalInfo;
 import com.vomozsystems.apps.android.vomoznet.utility.ApplicationUtils;
@@ -79,7 +80,7 @@ import static java.lang.System.exit;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final String AGREEMENT = "agreement";
+    public static final String AGREEMENT = "agreement";
     public static ReferenceData referenceData = new ReferenceData();
     private Personal personal;
     private final int REQUEST_READ_PHONE_STATE = 1000;
@@ -343,42 +344,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onResume();
     }
 
-    private void checkAgreement() {
-        boolean agreed = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this).getBoolean(LoginActivity.AGREEMENT, false);
-        final LinearLayout agreementLayout = (LinearLayout) findViewById(R.id.agree_layout);
-        final Button mobilePhoneCardViewNextButton = (Button) findViewById(R.id.mobilephone_cardview_next_button);
-
-        if(agreed) {
-            mobilePhoneCardViewNextButton.setEnabled(true);
-            agreementLayout.setVisibility(GONE);
-            mobilePhoneCardViewNextButton.setEnabled(true);
-            mobilePhoneCardViewNextButton.setTextColor(getResources().getColor(R.color.colorPrimary));
-        }else {
-            agreementLayout.setVisibility(VISIBLE);
-        }
-
-        RadioButton yes = (RadioButton) findViewById(R.id.agree_layout_yes);
-        yes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PreferenceManager.getDefaultSharedPreferences(LoginActivity.this).edit().putBoolean(LoginActivity.AGREEMENT, true).apply();
-                mobilePhoneCardViewNextButton.setEnabled(true);
-                mobilePhoneCardViewNextButton.setTextColor(getResources().getColor(R.color.colorPrimary));
-                //agreementLayout.setVisibility(GONE);
-            }
-        });
-
-        RadioButton no = (RadioButton) findViewById(R.id.agree_layout_no);
-        no.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PreferenceManager.getDefaultSharedPreferences(LoginActivity.this).edit().putBoolean(LoginActivity.AGREEMENT, false).apply();
-                mobilePhoneCardViewNextButton.setEnabled(false);
-                mobilePhoneCardViewNextButton.setTextColor(Color.GRAY);
-            }
-        });
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -488,7 +453,7 @@ public class LoginActivity extends AppCompatActivity {
         resetPasswordCardView.setVisibility(GONE);
         passwordCardView.setVisibility(GONE);
         //resetPasswordQuestionsCardView.setVisibility(GONE);
-        checkAgreement();
+        //checkAgreement();
         final ImageView flagImageView = (ImageView) findViewById(R.id.mobilephone_cardview_flag_imageview);
         if (flagUrl == null) flagImageView.setVisibility(GONE);
         Picasso.with(this)
@@ -1183,49 +1148,51 @@ public class LoginActivity extends AppCompatActivity {
         passwordCardView.setVisibility(GONE);
         final Realm realm = Realm.getDefaultInstance();
         final Config config = realm.where(Config.class).findFirst();
-
+        if(config.getResetPasswordCode() == null) {
+            realm.beginTransaction();
+            final int min = 100000;
+            final int max = 999999;
+            final int random = new Random().nextInt((max - min) + 1) + min;
+            String accessCode = random + "";
+            config.setResetPasswordCode(accessCode);
+            realm.copyToRealmOrUpdate(config);
+            realm.commitTransaction();
+        }
         Button buttonGetPasscode = findViewById(R.id.resetpasswordquestion_get_passcode_button);
         buttonGetPasscode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-                EmailMessage emailMessage = new EmailMessage();
-                final int min = 100000;
-                final int max = 999999;
-                final int random = new Random().nextInt((max - min) + 1) + min;
-                String accessCode = random + "";
-                realm.beginTransaction();
-                config.setResetPasswordCode(accessCode);
-                realm.copyToRealmOrUpdate(config);
-                realm.commitTransaction();
+                MakeDonationInterface makeDonationInterface = getDonationInterface();
+                final EmailMessage emailMessage = new EmailMessage();
                 emailMessage.setReceiver(config.getEmail());
                 emailMessage.setSubject(getResources().getString(R.string.app_name) + " - Reset Your Password");
-                emailMessage.setBody("Hello " + config.getFirstName() + "\n\nHere is the passcode needed to reset your password.\n\n<b>" + accessCode + "</b>\n\nBest Regards.\n"+getResources().getString(R.string.app_name)+ " app");
-                Call<BaseServiceResponse> call = apiInterface.sendEmail(config.getEmail(),emailMessage, "", "");
-                call.enqueue(new Callback<BaseServiceResponse>() {
+                emailMessage.setBody("Hello " + config.getFirstName() + "<br/><br/>Here is the code that is needed to reset your password.<br/><br/><b>" + config.getResetPasswordCode() + "</b><br/><br/>Best Regards.<br/>"+getResources().getString(R.string.app_name)+ " app");
+                Call<SendEmailResponse> callEmail = makeDonationInterface.sendEmail(emailMessage.getSubject(), emailMessage.getBody(), emailMessage.getReceiver(), "SendEmailToThisGiver");
+                callEmail.enqueue(new Callback<SendEmailResponse>() {
                     @Override
-                    public void onResponse(Call<BaseServiceResponse> call, Response<BaseServiceResponse> response) {
-                        if(response.isSuccessful()) {
+                    public void onResponse(Call<SendEmailResponse> call, Response<SendEmailResponse> response) {
+                        if(response.isSuccessful() && null != response.body() && null != response.body().getStatus() && response.body().getStatus().equalsIgnoreCase("1")){
                             SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.SUCCESS_TYPE)
-                                    .setContentText("The passcode has been sent to your email.")
+                                    .setContentText("Passcode sent to : " + emailMessage.getReceiver())
                                     .setTitleText(getString(R.string.app_name));
                             sweetAlertDialog.show();
                         }else {
                             SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
-                                    .setContentText("The passcode could NOT be sent to your email.")
+                                    .setContentText("Passcode could NOT be sent!")
                                     .setTitleText(getString(R.string.app_name));
                             sweetAlertDialog.show();
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<BaseServiceResponse> call, Throwable t) {
+                    public void onFailure(Call<SendEmailResponse> call, Throwable t) {
                         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
-                                .setContentText("The passcode could NOT be sent to your email.")
+                                .setContentText("Passcode could NOT be sent!")
                                 .setTitleText(getString(R.string.app_name));
                         sweetAlertDialog.show();
                     }
                 });
+
             }
         });
         final EditText passCodeEditText = (EditText) findViewById(R.id.resetpasswordquestion_cardview_passcode_edit_txt);
@@ -1236,71 +1203,123 @@ public class LoginActivity extends AppCompatActivity {
         resetPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(null != config.getAccessCode() && config.getAccessCode().equalsIgnoreCase(passCodeEditText.getText().toString())) {
-                    SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
-                            .setContentText("Invalid Passcode. Please check your email and try again")
-                            .setTitleText(getString(R.string.app_name));
-                    sweetAlertDialog.show();
-                } else {
-                    VomozGlobalInfo vomozGlobalInfo = new VomozGlobalInfo();
-                    vomozGlobalInfo.setCallerId(ApplicationUtils.cleanPhoneNumber(mPhoneNumber));
-                    vomozGlobalInfo.setPassword(newPasswordEditText.getText().toString());
-                    ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-                    Call<BaseServiceResponse> call = apiInterface.resetPasswordGlobalInfo(vomozGlobalInfo, "", ApplicationUtils.APP_ID);
-                    final SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.PROGRESS_TYPE)
-                            .setContentText("Reseting your password...Please Wait")
-                            .setTitleText(getString(R.string.app_name));
-                    sweetAlertDialog.show();
-                    call.enqueue(new Callback<BaseServiceResponse>() {
-                        @Override
-                        public void onResponse(Call<BaseServiceResponse> call, Response<BaseServiceResponse> response) {
-                            if (response.isSuccessful()) {
-                                sweetAlertDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
-                                sweetAlertDialog.setContentText("Password reset successfully");
-                                sweetAlertDialog.setConfirmText("Login Now");
-                                sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                if(passCodeEditText.getText().toString() != null && passCodeEditText.getText().toString().length() > 0) {
+                    if(newPasswordEditText.getText().toString() != null && newPasswordEditText.getText().toString().length() > 0) {
+                        String configAccessCode = config.getResetPasswordCode();
+                        String suppliedAccessCode = passCodeEditText.getText().toString();
+                        if (null != config.getResetPasswordCode() && !config.getResetPasswordCode().equalsIgnoreCase(passCodeEditText.getText().toString())) {
+                            final SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
+
+                                    .setTitleText(getString(R.string.app_name));
+                            sweetAlertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                                @Override
+                                public void onShow(DialogInterface dialogInterface) {
+                                    SweetAlertDialog alertDialog = (SweetAlertDialog) sweetAlertDialog;
+                                    TextView text = (TextView) alertDialog.findViewById(R.id.title_text);
+                                    text.setText("Invalid Passcode. Check your email and try again");
+                                    text.setSingleLine(false);
+                                }
+                            });
+                            sweetAlertDialog.show();
+                        } else {
+                            final String message = ApplicationUtils.validatePassword(newPasswordEditText.getText().toString(), config);
+                            if(message != null) {
+                                final SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
+
+                                        .setTitleText(getString(R.string.app_name));
+                                sweetAlertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
                                     @Override
-                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                        sweetAlertDialog.dismissWithAnimation();
-                                        Config config = realm.where(Config.class).findFirst();
-                                        realm.beginTransaction();
-                                        config.setFailedAttemptCount(0);
-                                        config.setResetPasswordCode(null);
-                                        config.setAccessCode(null);
-                                        config.setSendResetEmailCount(0);
-                                        config.setSendAccessCodeCount(0);
-                                        config.setLoggedIn(true);
-                                        realm.copyToRealmOrUpdate(config);
-                                        realm.commitTransaction();
-                                        showPasswordForm(newPasswordEditText.getText().toString());
+                                    public void onShow(DialogInterface dialogInterface) {
+                                        SweetAlertDialog alertDialog = (SweetAlertDialog) sweetAlertDialog;
+                                        TextView text = (TextView) alertDialog.findViewById(R.id.title_text);
+                                        text.setText(message);
+                                        text.setSingleLine(false);
                                     }
                                 });
-                            } else {
-                                sweetAlertDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
-                                sweetAlertDialog.setContentText("Password was not reset successfully");
-                                sweetAlertDialog.setConfirmText("OK");
-                                sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                sweetAlertDialog.show();
+                            }else {
+                                VomozGlobalInfo vomozGlobalInfo = new VomozGlobalInfo();
+                                vomozGlobalInfo.setCallerId(ApplicationUtils.cleanPhoneNumber(mPhoneNumber));
+                                vomozGlobalInfo.setPassword(newPasswordEditText.getText().toString());
+                                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                                Call<BaseServiceResponse> call = apiInterface.resetPasswordGlobalInfo(vomozGlobalInfo, "", ApplicationUtils.APP_ID);
+                                final SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.PROGRESS_TYPE)
+                                        .setContentText("Reseting your password...Please Wait")
+                                        .setTitleText(getString(R.string.app_name));
+                                sweetAlertDialog.show();
+                                call.enqueue(new Callback<BaseServiceResponse>() {
                                     @Override
-                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                        sweetAlertDialog.dismissWithAnimation();
+                                    public void onResponse(Call<BaseServiceResponse> call, Response<BaseServiceResponse> response) {
+                                        if (response.isSuccessful()) {
+                                            sweetAlertDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                                            sweetAlertDialog.setContentText("Password reset successfully");
+                                            sweetAlertDialog.setConfirmText("Login Now");
+                                            sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                @Override
+                                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                    sweetAlertDialog.dismissWithAnimation();
+                                                    Config config = realm.where(Config.class).findFirst();
+                                                    realm.beginTransaction();
+                                                    config.setFailedAttemptCount(0);
+                                                    config.setResetPasswordCode(null);
+                                                    config.setAccessCode(null);
+                                                    config.setSendResetEmailCount(0);
+                                                    config.setSendAccessCodeCount(0);
+                                                    config.setLoggedIn(true);
+                                                    realm.copyToRealmOrUpdate(config);
+                                                    realm.commitTransaction();
+                                                    showPasswordForm(newPasswordEditText.getText().toString());
+                                                }
+                                            });
+                                        } else {
+                                            sweetAlertDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                                            sweetAlertDialog.setContentText("Password was not reset successfully");
+                                            sweetAlertDialog.setConfirmText("OK");
+                                            sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                @Override
+                                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                    sweetAlertDialog.dismissWithAnimation();
+                                                }
+                                            });
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<BaseServiceResponse> call, Throwable t) {
+                                        sweetAlertDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                                        sweetAlertDialog.setContentText("Password was not reset successfully");
+                                        sweetAlertDialog.setConfirmText("OK");
+
+                                        sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                            @Override
+                                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                sweetAlertDialog.dismissWithAnimation();
+                                            }
+                                        });
                                     }
                                 });
                             }
                         }
+                    }else {
+                        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                .setContentText("Invalid Password. Please supply a valid password.")
+                                .setTitleText(getString(R.string.app_name));
+                        sweetAlertDialog.show();
+                    }
+                }else {
+                    final SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText(getString(R.string.app_name));
 
+                    sweetAlertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
                         @Override
-                        public void onFailure(Call<BaseServiceResponse> call, Throwable t) {
-                            sweetAlertDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
-                            sweetAlertDialog.setContentText("Password was not reset successfully");
-                            sweetAlertDialog.setConfirmText("OK");
-                            sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                @Override
-                                public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                    sweetAlertDialog.dismissWithAnimation();
-                                }
-                            });
+                        public void onShow(DialogInterface dialogInterface) {
+                            SweetAlertDialog alertDialog = (SweetAlertDialog) sweetAlertDialog;
+                            TextView text = (TextView) alertDialog.findViewById(R.id.title_text);
+                            text.setText("Invalid Passcode. Check your email and try again");
+                            text.setSingleLine(false);
                         }
                     });
+                    sweetAlertDialog.show();
                 }
             }
         });
@@ -1657,7 +1676,8 @@ public class LoginActivity extends AppCompatActivity {
         } catch (NumberParseException e) {
             return "Invalid phone number";
         }
-        String message = ApplicationUtils.validatePassword(passwordEditText.getText().toString());
+        final Config config = realm.where(Config.class).findFirst();
+        String message = ApplicationUtils.validatePassword(passwordEditText.getText().toString(), config);
         return message;
     }
 
@@ -1687,7 +1707,8 @@ public class LoginActivity extends AppCompatActivity {
             return "Invalid last name";
         if (!passwordEditText.getText().toString().equalsIgnoreCase(confirmPasswordEditText.getText().toString()))
             return "Please confirm your password";
-        String message = ApplicationUtils.validatePassword(passwordEditText.getText().toString());
+        final Config config = realm.where(Config.class).findFirst();
+        String message = ApplicationUtils.validatePassword(passwordEditText.getText().toString(), config);
         return message;
     }
 
@@ -1708,7 +1729,8 @@ public class LoginActivity extends AppCompatActivity {
             return "Invalid answer. Please supply a valid answer";
         if (!confirmPasswordEditText.getText().toString().equalsIgnoreCase(passwordEditText.getText().toString()))
             return "Please confirm your password";
-        String message = ApplicationUtils.validatePassword(passwordEditText.getText().toString());
+        final Config config = realm.where(Config.class).findFirst();
+        String message = ApplicationUtils.validatePassword(passwordEditText.getText().toString(), config);
         if (message == null) {
             if (!confirmPasswordEditText.getText().toString().equals(passwordEditText.getText().toString()))
                 return "Your password and confirmation are not the same.";

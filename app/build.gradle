@@ -7,8 +7,8 @@ android {
         applicationId "com.vomozsystems.apps.android.vomoznet"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 39
-        versionName "042918-01"
+        versionCode 43
+        versionName "050718-02"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

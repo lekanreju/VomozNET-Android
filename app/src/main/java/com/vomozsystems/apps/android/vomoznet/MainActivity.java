@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnHo
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
+    //private SectionsPagerAdapter mSectionsPagerAdapter;
     private int selectedOption = 0;
     private HomeFragment homeFragment;
     /**
@@ -89,16 +89,16 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnHo
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        //mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-        homeFragment = HomeFragment.newInstance();
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+//        mViewPager = (ViewPager) findViewById(R.id.container);
+//        mViewPager.setAdapter(mSectionsPagerAdapter);
+//        homeFragment = HomeFragment.newInstance();
+//        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+//
+//        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+//        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
     }
 
     @Override
@@ -420,6 +420,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnHo
             public void onResponse(Call<UserLoginResponse> call, Response<UserLoginResponse> response) {
                 if (response.isSuccessful() && null != response.body().getResponseData()) {
                     realm.beginTransaction();
+                    realm.delete(User.class);
                     User user = response.body().getResponseData();
                     realm.copyToRealmOrUpdate(user);
                     realm.commitTransaction();

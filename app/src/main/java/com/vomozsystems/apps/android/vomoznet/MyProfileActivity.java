@@ -210,6 +210,9 @@ public class MyProfileActivity extends AppCompatActivity {
         emailEditText = (EditText) findViewById(R.id.edit_email);
         passwordEditText = (EditText) findViewById(R.id.edit_password);
 
+        Realm realm = Realm.getDefaultInstance();
+        final Config config = realm.where(Config.class).findFirst();
+
         if(firstNameEditText.getText().toString().length() < 2) {
             message = "First name is not valid";
         }
@@ -227,7 +230,7 @@ public class MyProfileActivity extends AppCompatActivity {
         else if (question2Answer.getText().toString().length() == 0)
             message = "You must provide an answer to the second question";
         else
-            message = ApplicationUtils.validatePassword(passwordEditText.getText().toString());
+            message = ApplicationUtils.validatePassword(passwordEditText.getText().toString(), config);
 
         return message;
     }

@@ -16,7 +16,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Mint.initAndStartSession(this.getApplication(), "36cc1bd3");
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, AgreementActivity.class);
         startActivity(intent);
         finish();
     }

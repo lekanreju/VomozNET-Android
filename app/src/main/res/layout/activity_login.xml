@@ -181,45 +181,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/agree_layout"
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="10sp"
-                    android:text="This app will save your phone number on our secured data servers. The purpose is to associate use your phone number to uniquely identify you. Please read more about our privacy policy at https://vomoz.net/privacy_policy and indicate your consent below "
-                    />
-
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center">
-
-                    <RadioButton
-                        android:id="@+id/agree_layout_no"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:text="I Do Not Agree"/>
-
-                    <RadioButton
-                        android:id="@+id/agree_layout_yes"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="I Agree"/>
-
-                </RadioGroup>
-            </LinearLayout>
-
-            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -245,8 +206,8 @@
                     android:layout_gravity="end"
                     android:background="@color/white"
                     android:text="Next"
-                    android:enabled="false"
-                    android:textColor="@color/gray" />
+                    android:enabled="true"
+                    android:textColor="@color/colorPrimary" />
             </LinearLayout>
 
         </LinearLayout>

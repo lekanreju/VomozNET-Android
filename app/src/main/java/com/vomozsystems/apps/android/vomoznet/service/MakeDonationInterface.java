@@ -49,6 +49,14 @@ public interface MakeDonationInterface {
                                                 @Field("contribution_type_3") String contributionType3,
                                                 @Field("service_name") String serviceName);
 
+
+    @FormUrlEncoded
+    @POST("index-vmznet-test.php")
+    Call<SendEmailResponse> sendEmail(@Field("email_subject") String emailSubject,
+                                                @Field("email_body") String emailBody,
+                                                @Field("email_receiver") String emailReceiver,
+                                                @Field("service_name") String serviceName);
+
     @FormUrlEncoded
     @POST("index-vmznet-test.php")
     Call<ChangeDonationCenterResponse> changeOrganization(@Field("current_universal_auth_token") String universalAuthToken,

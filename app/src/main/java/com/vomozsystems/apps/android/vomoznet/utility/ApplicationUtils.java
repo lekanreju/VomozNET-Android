@@ -5,6 +5,7 @@ import android.app.Activity;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.vomozsystems.apps.android.vomoznet.entity.Config;
 import com.vomozsystems.apps.android.vomoznet.service.MakeDonationInterface;
 
 import java.text.DateFormatSymbols;
@@ -115,10 +116,16 @@ public class ApplicationUtils {
         return ret;
     }
 
-    public static String validatePassword(String pass) {
-        String passwordRules = "Your password must :\n\n * Be between 8 and 15 digits/chars long\n* Contain at least one digit\n* Contain at least one uppercase char\n* Contain at least one lowercase char\n* Contain at least one special char (in the list '!@#$%^&*+=?-'";
-        if (pass.length() < 8 || pass.length() > 15) {
+    public static String validatePassword(String pass, Config config) {
+        String passwordRules = "Your password must :\n\n * Be between 8 and 15 digits/chars long\n* Contain at least one digit\n*";
+        if (pass.length() < 6 || pass.length() > 20) {
             return "Password too short or too long.\n" + passwordRules;
+        }
+        if(config != null && config.getLastName() != null && pass.toLowerCase().contains(config.getLastName().toLowerCase())) {
+            return "Password must not contain your last name.\n" + passwordRules;
+        }
+        if(config != null && config.getLastName() != null && pass.toLowerCase().contains(config.getFirstName().toLowerCase())) {
+            return "Password must not contain your first name.\n" + passwordRules;
         }
         if (!pass.matches(".*\\d.*")) {
             return "Password contains no digit or number.\n" + passwordRules;
