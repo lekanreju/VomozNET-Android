@@ -170,14 +170,15 @@ public class UpdateChildDialogFragment extends DialogFragment {
             }
         });
         if(child != null) {
-            firstNameEditText.setText(child.getFirstName());
-            lastNameEditText.setText(child.getLastName());
-            middleNameEditText.setText(child.getMiddleName());
-            preferredNameEditText.setText(child.getPreferredName());
-            ageGroupEditText.setText(child.getAgeGroup());
-            schoolNameEditText.setText(child.getSchoolName());
-            gradeEditText.setText(child.getGrade());
-            if(child.getBirthDate() != null && child.getBirthDate().equalsIgnoreCase("0")) {
+            firstNameEditText.setText(child.getFirstName().equalsIgnoreCase("0")?"":child.getFirstName());
+            lastNameEditText.setText(child.getLastName().equalsIgnoreCase("0")?"":child.getLastName());
+            middleNameEditText.setText(child.getMiddleName().equalsIgnoreCase("0")?"":child.getMiddleName());
+            preferredNameEditText.setText(child.getPreferredName().equalsIgnoreCase("0")?"":child.getPreferredName());
+            ageGroupEditText.setText(child.getAgeGroup().equalsIgnoreCase("0")?"":child.getLastName());;
+            schoolNameEditText.setText(child.getSchoolName().equalsIgnoreCase("0")?"":child.getSchoolName());
+            gradeEditText.setText(child.getGrade().equalsIgnoreCase("0")?"":child.getGrade());
+            suffixEditText.setText(child.getSuffix().equalsIgnoreCase("0")?"":child.getSuffix());
+            if(child.getBirthDate() != null) {
                 Calendar cc = Calendar.getInstance();
                 cc.setTimeInMillis(Long.valueOf(child.getBirthDate()));
                 birthDateEditText.setText(formatter.format(cc.getTime()));
@@ -263,6 +264,8 @@ public class UpdateChildDialogFragment extends DialogFragment {
                                     @Override
                                     public void onClick(SweetAlertDialog sweetAlertDialog) {
                                         sweetAlertDialog.dismiss();
+                                        dismiss();
+                                        kidFragment.onResume();
                                     }
                                 });
                             } else {

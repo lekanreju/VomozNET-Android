@@ -209,7 +209,7 @@
                 android:background="@drawable/straight_border_2"
                 android:orientation="horizontal"
                 android:layout_marginRight="5dp"
-                android:text="Update"
+                android:text="Edit"
                 android:id="@+id/kid_update_button"
                 android:textColor="@color/white" />
 

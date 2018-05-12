@@ -83,6 +83,62 @@ public class MyKidRecyclerViewAdapter extends RecyclerView.Adapter<MyKidRecycler
         holder.mKidGrade.setText(mValues.get(position).getGrade().equalsIgnoreCase("0")?"Not Available": mValues.get(position).getGrade());
         holder.mKidStatus.setText(holder.mItem.getCheckInStatus().equals("0")?"CHECKED_OUT":"CHECKED_IN");
 
+        Realm realm = Realm.getDefaultInstance();
+        DonationCenter donationCenter = realm.where(DonationCenter.class).equalTo("homeDonationCenter", true).findFirst();
+        User user = realm.where(User.class).findFirst();
+        Config config = realm.where(Config.class).findFirst();
+        holder.mItem.setDonationCenterCardId(donationCenter.getCardId());
+        holder.mItem.setPassword(config.getPassword());
+        holder.mItem.setCallerId(ApplicationUtils.cleanPhoneNumber(config.getMobilePhone()));
+        holder.mItem.setParent1TexterCardId(donationCenter.getTexterCardId());
+        holder.mKidDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new SweetAlertDialog(kidFragment.getActivity(), SweetAlertDialog.WARNING_TYPE)
+                        .setContentText("Dou you want to delete this child information?")
+                        .setTitleText(kidFragment.getActivity().getResources().getString(R.string.app_name))
+                        .setConfirmText("Delete")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(final SweetAlertDialog sweetAlertDialog) {
+                                sweetAlertDialog.changeAlertType(SweetAlertDialog.PROGRESS_TYPE);
+                                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                                Call<BaseServiceResponse> call = apiInterface.deleteChild(holder.mItem, "", "");
+                                call.enqueue(new Callback<BaseServiceResponse>() {
+                                    @Override
+                                    public void onResponse(Call<BaseServiceResponse> call, Response<BaseServiceResponse> response) {
+                                        if(response.isSuccessful()) {
+                                            sweetAlertDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                                            sweetAlertDialog.setConfirmText("OK");
+                                            sweetAlertDialog.setContentText("DELETED");
+                                            sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                @Override
+                                                public void onClick(SweetAlertDialog sDialog) {
+                                                    sDialog.dismiss();
+                                                }
+                                            });
+                                            kidFragment.onResume();
+                                            notifyDataSetChanged();
+                                        }else {
+                                            sweetAlertDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                                            sweetAlertDialog.setConfirmText("OK");
+                                            sweetAlertDialog.setContentText("Request was NOT completed successfully.");
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<BaseServiceResponse> call, Throwable t) {
+                                        sweetAlertDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                                        sweetAlertDialog.setConfirmText("OK");
+                                        sweetAlertDialog.setContentText("Request was NOT completed successfully.");
+                                    }
+                                });
+
+                            }
+                        }).show();
+            }
+        });
+
         holder.mKidCheckInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,7 +185,7 @@ public class MyKidRecyclerViewAdapter extends RecyclerView.Adapter<MyKidRecycler
             }
         });
 
-        holder.mKidCheckInButton.setBackgroundColor(context.getResources().getColor(holder.mItem.getCheckInStatus().equals("0")?R.color.colorAccent:R.color.green));
+        holder.mKidCheckInButton.setBackgroundColor(context.getResources().getColor(holder.mItem.getCheckInStatus().equals("0")?R.color.dark_gray:R.color.green));
         holder.mKidCheckInButton.setText(holder.mItem.getCheckInStatus().equals("0")?"CHECK IN":"CHECK OUT");
         holder.mKidPic1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -218,7 +274,7 @@ public class MyKidRecyclerViewAdapter extends RecyclerView.Adapter<MyKidRecycler
                     });
                     holder.mItem.setCheckInStatus("1");
                     holder.mKidStatus.setText(holder.mItem.getCheckInStatus().equals("0")?"CHECKED_OUT":"CHECKED_IN");
-                    holder.mKidCheckInButton.setBackgroundColor(context.getResources().getColor(holder.mItem.getCheckInStatus().equals("0")?R.color.colorAccent:R.color.green));
+                    holder.mKidCheckInButton.setBackgroundColor(context.getResources().getColor(holder.mItem.getCheckInStatus().equals("0")?R.color.dark_gray:R.color.green));
                     holder.mKidCheckInButton.setText(holder.mItem.getCheckInStatus().equals("0")?"CHECK IN":"CHECK OUT");
                 }else {
                     sweetAlertDialog.dismiss();
@@ -274,7 +330,7 @@ public class MyKidRecyclerViewAdapter extends RecyclerView.Adapter<MyKidRecycler
                     });
                     holder.mItem.setCheckInStatus("0");
                     holder.mKidStatus.setText(holder.mItem.getCheckInStatus().equals("0")?"CHECKED_OUT":"CHECKED_IN");
-                    holder.mKidCheckInButton.setBackgroundColor(context.getResources().getColor(holder.mItem.getCheckInStatus().equals("0")?R.color.colorAccent:R.color.green));
+                    holder.mKidCheckInButton.setBackgroundColor(context.getResources().getColor(holder.mItem.getCheckInStatus().equals("0")?R.color.dark_gray:R.color.green));
                     holder.mKidCheckInButton.setText(holder.mItem.getCheckInStatus().equals("0")?"CHECK IN":"CHECK OUT");
                 }else {
                     sweetAlertDialog.dismiss();

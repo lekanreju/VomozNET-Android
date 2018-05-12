@@ -486,4 +486,7 @@ public interface ApiInterface {
     @POST("users/create/kids")
     Call<BaseServiceResponse> createChild(@Body Child child, @Header("VmzPay-Auth-Token") String authToken, @Header("VmzPay-App-Id") String appId);
 
+    @POST("users/delete/kids")
+    Call<BaseServiceResponse> deleteChild(@Body Child child, @Header("VmzPay-Auth-Token") String authToken, @Header("VmzPay-App-Id") String appId);
+
 }
