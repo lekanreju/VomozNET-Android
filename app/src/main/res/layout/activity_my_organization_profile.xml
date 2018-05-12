@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/colorPrimary"
+    tools:context="com.vomozsystems.apps.android.vomoznet.MyOrganizationProfileActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/appbar_padding_top"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_weight="1"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="@string/app_name">
+
+        </android.support.v7.widget.Toolbar>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@color/white"
+            app:tabIndicatorColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/personalTabItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="personal" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/addressTabItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="address" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/kidsTabItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="kids" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/picturesTabItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="pictures" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/contactsTabItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="contacts" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/careerTabItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="career" />
+
+        </android.support.design.widget.TabLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+</android.support.design.widget.CoordinatorLayout>

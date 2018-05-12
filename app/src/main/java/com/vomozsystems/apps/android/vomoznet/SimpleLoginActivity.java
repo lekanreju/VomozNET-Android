@@ -70,6 +70,7 @@ import static java.lang.System.exit;
 public class SimpleLoginActivity extends AppCompatActivity implements LoginFragment.OnLoginFragmentInteractionListener {
 
     public static final String AGREEMENT = "agreement";
+    public static final String AUTH_TOKEN_LABEL = "auth_token_label";
     public static ReferenceData referenceData = new ReferenceData();
     private final int REQUEST_READ_PHONE_STATE = 1000;
     public OkHttpClient okHttpClient = new OkHttpClient.Builder()

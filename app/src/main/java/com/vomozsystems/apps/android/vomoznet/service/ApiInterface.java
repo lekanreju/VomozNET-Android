@@ -2,6 +2,8 @@ package com.vomozsystems.apps.android.vomoznet.service;
 
 import com.vomozsystems.apps.android.vomoznet.entity.Address;
 import com.vomozsystems.apps.android.vomoznet.entity.Career;
+import com.vomozsystems.apps.android.vomoznet.entity.Child;
+import com.vomozsystems.apps.android.vomoznet.entity.ChildAttendance;
 import com.vomozsystems.apps.android.vomoznet.entity.Contact;
 import com.vomozsystems.apps.android.vomoznet.entity.CreditCard;
 import com.vomozsystems.apps.android.vomoznet.entity.Personal;
@@ -227,6 +229,12 @@ public interface ApiInterface {
     @POST("users/info/personal")
     Call<GetMemberResponse> getMemberPersonalInfo(@Body GetMemberRequest getMemberRequest, @Header("VmzPay-Auth-Token") String authToken, @Header("VmzPay-App-Id") String appId);
 
+    @POST("users/info/kids")
+    Call<GetMemberChildrenResponse> getMemberChildren(@Body Personal personal, @Header("VmzPay-Auth-Token") String authToken, @Header("VmzPay-App-Id") String appId);
+
+    @POST("users/update/kids")
+    Call<BaseServiceResponse> updateChild(@Body Child child, @Header("VmzPay-Auth-Token") String authToken, @Header("VmzPay-App-Id") String appId);
+
     /**
      * @param getMemberRequest
      * @param appId
@@ -390,6 +398,26 @@ public interface ApiInterface {
     Call<GetDonationCenterTopicResponse> getDonationCenterTopics(@Path("donationCenterId") Long donationCenterId);
 
     /**
+     *
+     * @param childAttendance
+     * @param authToken
+     * @param appId
+     * @return
+     */
+    @POST("users/child-checkin")
+    Call<BaseServiceResponse> checkInChild(@Body ChildAttendance childAttendance, @Header("VmzPay-Auth-Token") String authToken, @Header("VmzPay-App-Id") String appId);
+
+    /**
+     *
+     * @param childAttendance
+     * @param authToken
+     * @param appId
+     * @return
+     */
+    @POST("users/child-checkout")
+    Call<BaseServiceResponse> checkOutChild(@Body ChildAttendance childAttendance, @Header("VmzPay-Auth-Token") String authToken, @Header("VmzPay-App-Id") String appId);
+
+    /**
      * @param donationCenterId
      * @return
      */
@@ -454,5 +482,8 @@ public interface ApiInterface {
 
     @POST("cards/copy-card")
     Call<BaseServiceResponse> copyCard(@Body CopyCardRequest request, @Header("VmzPay-Auth-Token") String authToken, @Header("VmzPay-App-Id") String appId);
+
+    @POST("users/create/kids")
+    Call<BaseServiceResponse> createChild(@Body Child child, @Header("VmzPay-Auth-Token") String authToken, @Header("VmzPay-App-Id") String appId);
 
 }

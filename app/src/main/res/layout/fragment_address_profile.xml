@@ -1,0 +1,192 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context="com.vomozsystems.apps.android.vomoznet.fragment.AddressProfileFragment">
+
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_save"
+                style="?android:attr/borderlessButtonStyle"
+                android:background="@drawable/border"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="end"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:textColor="@color/white"
+                android:drawableLeft="@drawable/ic_save"
+                android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:text="  Save   "
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/white"
+                android:text="Address Line 1" />
+
+            <EditText
+                android:id="@+id/edit_address_line1"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:textColor="@color/white"
+                android:background="@drawable/border"
+                android:enabled="true"
+                android:textColorHint="@color/dark_gray"
+                android:gravity="center_vertical"
+                android:hint="@string/prompt_address1"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingLeft="5dp"
+                android:textSize="@dimen/text_size_medium" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/white"
+                android:text="Address Line 2" />
+
+            <EditText
+                android:id="@+id/edit_address_line2"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/border"
+                android:enabled="true"
+                android:textColorHint="@color/dark_gray"
+                android:gravity="center_vertical"
+                android:textColor="@color/white"
+                android:hint="@string/prompt_address2"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingLeft="5dp"
+                android:textSize="@dimen/text_size_medium" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/white"
+                android:text="City/Town" />
+
+            <EditText
+                android:id="@+id/edit_city"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/border"
+                android:enabled="true"
+                android:textColorHint="@color/dark_gray"
+                android:gravity="center_vertical"
+                android:textColor="@color/white"
+                android:hint="@string/prompt_city"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingLeft="5dp"
+                android:textSize="@dimen/text_size_medium" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:textColor="@color/white"
+                android:layout_marginTop="10dp"
+                android:text="Country" />
+
+            <EditText
+                android:id="@+id/edit_country"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/border"
+                android:enabled="true"
+                android:textColorHint="@color/dark_gray"
+                android:gravity="center_vertical"
+                android:hint="@string/prompt_country"
+                android:inputType="text"
+                android:textColor="@color/white"
+                android:maxLines="1"
+                android:paddingLeft="5dp"
+                android:textSize="@dimen/text_size_medium" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:textColor="@color/white"
+                android:layout_marginTop="10dp"
+                android:text="State/Province" />
+
+            <EditText
+                android:id="@+id/edit_state"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/border"
+                android:enabled="true"
+                android:textColorHint="@color/dark_gray"
+                android:textColor="@color/white"
+                android:gravity="center_vertical"
+                android:hint="@string/prompt_state"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingLeft="5dp"
+                android:textSize="@dimen/text_size_medium" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/white"
+                android:text="Zip/Postal Code" />
+
+            <EditText
+                android:id="@+id/edit_zip"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/border"
+                android:enabled="true"
+                android:textColorHint="@color/dark_gray"
+                android:gravity="center_vertical"
+                android:hint="@string/prompt_zip"
+                android:inputType="text"
+                android:textColor="@color/white"
+                android:maxLines="1"
+                android:paddingLeft="5dp"
+                android:textSize="@dimen/text_size_medium" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="150dp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="Data cannot be retrieved"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:visibility="gone" />
+</FrameLayout>

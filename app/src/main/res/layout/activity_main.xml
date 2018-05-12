@@ -76,16 +76,6 @@
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/white"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="-15dp"
-        android:layout_marginBottom="15dp"
-        />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -127,7 +117,7 @@
             android:orientation="vertical"
             android:gravity="center">
             <com.pkmmte.view.CircularImageView
-                android:id="@+id/img_my_church"
+                android:id="@+id/img_church"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:adjustViewBounds="true"
@@ -144,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
                 android:textColor="@color/white"
-                android:text="MY CHURCH"
+                android:text="PORTAL"
                 android:fontFamily="sans-serif-light"/>
         </LinearLayout>
         <LinearLayout
@@ -155,7 +145,7 @@
             android:orientation="vertical"
             android:gravity="center">
             <com.pkmmte.view.CircularImageView
-                android:id="@+id/img_my_profile"
+                android:id="@+id/img_profile"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:adjustViewBounds="true"

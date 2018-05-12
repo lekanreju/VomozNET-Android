@@ -1,0 +1,315 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context="com.vomozsystems.apps.android.vomoznet.fragment.PersonalProfileFragment">
+
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_save"
+                style="?android:attr/borderlessButtonStyle"
+                android:background="@drawable/border"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="end"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:textColor="@color/white"
+                android:drawableLeft="@drawable/ic_save"
+                android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:text="  Save   "
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:textColor="@color/light_gray"
+                android:layout_marginTop="10dp"
+                android:text="Title" />
+
+            <EditText
+                android:id="@+id/edit_title"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/border"
+                android:enabled="true"
+                android:textColorHint="@color/dark_gray"
+                android:textColor="@color/white"
+                android:gravity="center_vertical"
+                android:hint="@string/prompt_title"
+                android:inputType="text"
+                android:maxLines="1"
+                android:nextFocusDown="@+id/edit_first_name"
+                android:paddingLeft="5dp"
+                android:textSize="@dimen/text_size_medium" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:textColor="@color/light_gray"
+                android:layout_marginTop="10dp"
+                android:text="First Name" />
+
+            <EditText
+                android:id="@+id/edit_first_name"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/border"
+                android:enabled="true"
+                android:textColor="@color/white"
+                android:textColorHint="@color/dark_gray"
+                android:gravity="center_vertical"
+                android:hint="@string/prompt_first_name"
+                android:inputType="textPersonName"
+                android:maxLines="1"
+                android:nextFocusDown="@+id/edit_middle_name"
+                android:paddingLeft="5dp"
+                android:textSize="@dimen/text_size_medium" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:textColor="@color/light_gray"
+                android:layout_marginTop="10dp"
+                android:text="Middle Name" />
+
+            <EditText
+                android:id="@+id/edit_middle_name"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/border"
+                android:enabled="true"
+                android:gravity="center_vertical"
+                android:hint="@string/prompt_middle_name"
+                android:textColorHint="@color/dark_gray"
+                android:inputType="textPersonName"
+                android:maxLines="1"
+                android:textColor="@color/white"
+                android:nextFocusDown="@+id/edit_last_name"
+                android:paddingLeft="5dp"
+                android:textSize="@dimen/text_size_medium" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:textColor="@color/light_gray"
+                android:layout_marginTop="10dp"
+                android:text="Last Name" />
+
+            <EditText
+                android:id="@+id/edit_last_name"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/border"
+                android:enabled="true"
+                android:textColorHint="@color/dark_gray"
+                android:textColor="@color/white"
+                android:gravity="center_vertical"
+                android:hint="@string/prompt_last_name"
+                android:inputType="textPersonName"
+                android:maxLines="1"
+                android:nextFocusDown="@+id/edit_birth_date"
+                android:paddingLeft="5dp"
+                android:textSize="@dimen/text_size_medium" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/light_gray"
+                android:text="Birth Date" />
+
+            <EditText
+                android:id="@+id/edit_birth_date"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/border"
+                android:enabled="true"
+                android:textColorHint="@color/dark_gray"
+                android:textColor="@color/white"
+                android:gravity="center_vertical"
+                android:hint="@string/prompt_birth_date"
+                android:inputType="text"
+                android:maxLines="1"
+                android:nextFocusDown="@+id/edit_gender"
+                android:paddingLeft="5dp"
+                android:textSize="@dimen/text_size_medium" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:textColor="@color/light_gray"
+                android:layout_marginTop="10dp"
+                android:text="Gender" />
+
+            <EditText
+                android:id="@+id/edit_gender"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/border"
+                android:enabled="true"
+                android:textColorHint="@color/dark_gray"
+                android:textColor="@color/white"
+                android:gravity="center_vertical"
+                android:hint="@string/prompt_gender"
+                android:inputType="text"
+                android:maxLines="1"
+                android:nextFocusDown="@+id/edit_primary_email"
+                android:paddingLeft="5dp"
+                android:textSize="@dimen/text_size_medium" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:textColor="@color/light_gray"
+                android:layout_marginTop="10dp"
+                android:text="Primary Email" />
+
+            <EditText
+                android:id="@+id/edit_primary_email"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:textColor="@color/white"
+                android:background="@drawable/border"
+                android:enabled="true"
+                android:textColorHint="@color/dark_gray"
+                android:gravity="center_vertical"
+                android:hint="@string/prompt_primary_email"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:nextFocusDown="@+id/edit_secondary_email"
+                android:paddingLeft="5dp"
+                android:textSize="@dimen/text_size_medium" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:textColor="@color/light_gray"
+                android:layout_marginTop="10dp"
+                android:text="Secondary Email" />
+
+            <EditText
+                android:id="@+id/edit_secondary_email"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:textColor="@color/white"
+                android:background="@drawable/border"
+                android:enabled="true"
+                android:textColorHint="@color/dark_gray"
+                android:gravity="center_vertical"
+                android:hint="@string/prompt_secondary_email"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:nextFocusDown="@+id/edit_home_phone"
+                android:paddingLeft="5dp"
+                android:textSize="@dimen/text_size_medium" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:textColor="@color/light_gray"
+                android:layout_marginTop="10dp"
+                android:text="Home Phone" />
+
+            <EditText
+                android:id="@+id/edit_home_phone"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:textColor="@color/white"
+                android:background="@drawable/border"
+                android:enabled="true"
+                android:textColorHint="@color/dark_gray"
+                android:gravity="center_vertical"
+                android:hint="@string/prompt_home_phone"
+                android:inputType="phone"
+                android:maxLines="1"
+                android:nextFocusDown="@+id/edit_marital_status"
+                android:paddingLeft="5dp"
+                android:textSize="@dimen/text_size_medium" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/light_gray"
+                android:text="Marital Status" />
+
+            <EditText
+                android:id="@+id/edit_marital_status"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/border"
+                android:enabled="true"
+                android:textColor="@color/white"
+                android:gravity="center_vertical"
+                android:hint="@string/prompt_marital_status"
+                android:inputType="text"
+                android:maxLines="1"
+                android:nextFocusDown="@+id/edit_wedding_date"
+                android:paddingLeft="5dp"
+                android:textSize="@dimen/text_size_medium" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/light_gray"
+                android:text="Wedding Date" />
+
+            <EditText
+                android:id="@+id/edit_wedding_date"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/border"
+                android:enabled="true"
+                android:textColor="@color/white"
+                android:gravity="center_vertical"
+                android:hint="@string/prompt_wedding_date"
+                android:inputType="date"
+                android:maxLines="1"
+                android:paddingLeft="5dp"
+                android:textSize="@dimen/text_size_medium" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="150dp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:text="Data cannot be retrieved"
+        android:textSize="20sp"
+        android:visibility="gone" />
+</FrameLayout>

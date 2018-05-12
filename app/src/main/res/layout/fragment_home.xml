@@ -36,22 +36,19 @@
                     android:id="@+id/relative_container"
                     android:layout_width="0dp"
                     android:layout_height="100dp"
-                    android:layout_gravity="top"
+                    android:layout_gravity="center"
                     android:layout_weight="0.33"
-                    android:gravity="top">
+                    android:gravity="center">
 
                     <com.pkmmte.view.CircularImageView
                         android:id="@+id/img_user_profile"
                         android:layout_width="65dp"
                         android:layout_height="65dp"
                         android:layout_gravity="center"
-                        android:layout_marginTop="5dp"
                         android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="5dp"
                         android:adjustViewBounds="true"
                         android:gravity="center"
-                        android:scaleType="fitCenter"
+                         android:scaleType="fitCenter"
                         android:src="@mipmap/ic_circle_person"
                         app:border="true"
                         app:border_color="@color/white"
@@ -124,7 +121,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="0dp"
                             android:layout_gravity="center"
-                            android:fontFamily="sans-serif-condensed"
+                            android:fontFamily="sans-serif-thin"
                             android:gravity="center"
                             android:text="2018 Contributions: "
                             android:textColor="@color/white"
@@ -135,11 +132,11 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:fontFamily="sans-serif-condensed"
+                            android:fontFamily="sans-serif-thin"
                             android:gravity="left"
                             android:textColor="@color/white"
                             android:textSize="15sp"
-                            android:text="$20000.00 USD"
+                            android:text="$20,000.00 USD"
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -161,6 +158,15 @@
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/white"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="15dp"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -177,6 +183,15 @@
             custom:pager_animation_span="1100" />
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/white"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        />
 
     <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:card_view="http://schemas.android.com/apk/res-auto"

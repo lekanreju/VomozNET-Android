@@ -26,6 +26,7 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import com.pkmmte.view.CircularImageView;
 import com.splunk.mint.Mint;
 import com.vomozsystems.apps.android.vomoznet.entity.Config;
 import com.vomozsystems.apps.android.vomoznet.entity.DonationCenter;
@@ -84,9 +85,57 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnHo
         Realm.init(this);
         Realm realm = Realm.getDefaultInstance();
         Config config = realm.where(Config.class).findFirst();
-
+        homeFragment = HomeFragment.newInstance();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        CircularImageView giveImage = (CircularImageView) findViewById(R.id.img_give);
+        giveImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Realm realm = Realm.getDefaultInstance();
+                DonationCenter donationCenter = realm.where(DonationCenter.class).equalTo("homeDonationCenter", true).findFirst();
+                User user = realm.where(User.class).findFirst();
+                if(donationCenter!=null && user!=null) {
+                    Intent intent = new Intent(MainActivity.this, GiveActivity.class);
+                    startActivity(intent);
+                }else {
+                    onResume();
+                }
+            }
+        });
+
+        CircularImageView myChurchImage = (CircularImageView) findViewById(R.id.img_church);
+        myChurchImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Realm realm = Realm.getDefaultInstance();
+                DonationCenter donationCenter = realm.where(DonationCenter.class).equalTo("homeDonationCenter", true).findFirst();
+                User user = realm.where(User.class).findFirst();
+                if(donationCenter!=null && user!=null) {
+                    Intent intent = new Intent(MainActivity.this, MyChurchActivity.class);
+                    startActivity(intent);
+                }else {
+                    onResume();
+                }
+            }
+        });
+
+        CircularImageView myProfileImage = (CircularImageView) findViewById(R.id.img_profile);
+        myProfileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Realm realm = Realm.getDefaultInstance();
+                DonationCenter donationCenter = realm.where(DonationCenter.class).equalTo("homeDonationCenter", true).findFirst();
+                User user = realm.where(User.class).findFirst();
+                if(donationCenter!=null && user!=null) {
+                    Intent intent = new Intent(MainActivity.this, MyOrganizationProfileActivity.class);
+                    startActivity(intent);
+                }else {
+                    onResume();
+                }
+            }
+        });
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         //mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());

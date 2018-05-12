@@ -148,7 +148,17 @@
             android:name=".SimpleLoginActivity"
             android:label="@string/title_activity_simple_login"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".AgreementActivity"></activity>
+        <activity android:name=".AgreementActivity" />
+        <activity
+            android:name=".MyOrganizationProfileActivity"
+            android:label="@string/title_activity_my_organization_profile"
+            android:parentActivityName=".MainActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vomozsystems.apps.android.vomoznet.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
